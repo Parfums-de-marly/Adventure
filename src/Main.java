@@ -1,3 +1,5 @@
 void main() {
-    IO.println("Lucas er til mænd");
+Adventure adventure = new Adventure();
+
+adventure.run();
 }
