@@ -10,9 +10,19 @@ Room west;
         this.name = name;
         this.description = description;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
     public Room setNorth(Room room){
         return north = room;
     }
+
     public Room getNorth(){
         return north;
     }
@@ -40,4 +50,5 @@ Room west;
     public Room getWest(){
         return west;
     }
+
 }
