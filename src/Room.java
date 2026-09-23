@@ -13,14 +13,6 @@ Room west;
         this.doorDescription = doorDescription;
     }
 
-    public String getName(){
-        return name;
-    }
-
-    public String getDescription(){
-        return description;
-    }
-
     public Room setNorth(Room room){
         return north = room;
     }
