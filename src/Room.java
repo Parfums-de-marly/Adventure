@@ -1,14 +1,16 @@
 public class Room {
 String name;
 String description;
+String doorDescription;
 Room north;
 Room east;
 Room south;
 Room west;
 
-    public Room(String name, String description){
+    public Room(String name, String description,String doorDescription){
         this.name = name;
         this.description = description;
+        this.doorDescription = doorDescription;
     }
 
     public String getName(){
