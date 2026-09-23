@@ -1,13 +1,21 @@
 public class Adventure {
-    Room room1 = new Room("Room 1", "Et lille stenkammer med kolde vægge og en flimrende fakkel.");
-    Room room2 = new Room("Room 2", "Et snævert rum fyldt med spindelvæv og støvede kister.");
-    Room room3 = new Room("Room 3", "En lille lysning med en gammel offersten i midten.");
-    Room room4 = new Room("Room 4", "Et trangt bibliotek med væltede boghylder og papirer på gulvet.");
-    Room room5 = new Room("Room 5", "Et koldt kammer dækket af rim, med et frosset vandfald i hjørnet.");
-    Room room6 = new Room("Room 6", "En lille smedje med en rustet ambolt og kolde ovne.");
-    Room room7 = new Room("Room 7", "Et mørkt kapel med knækkede statuer og lugten af gammelt voks.");
-    Room room8 = new Room("Room 8", "Et lille lager fyldt med tomme tønder og en skæv lampe.");
-    Room room9 = new Room("Room 9", "Et snævert vagtrum med en rusten rustning lænet op ad væggen.");
+    Room room1 = new Room("Room 1", "You walk into the room, it looks like a small stone chamber with cold walls and a flickering torch.", "A narrow passage leads east, while a crumbling staircase descends south.");
+
+    Room room2 = new Room("Room 2", "You walk into the room, it looks like a cramped space filled with cobwebs and dusty chests.", "A cobweb-draped doorway leads west, and a faint draft hints at an opening to the east.");
+
+    Room room3 = new Room("Room 3", "You walk into the room, it looks like a small clearing with an old sacrificial stone in the middle.", "A worn path leads west back into the shadows, while a dark trail winds south.");
+
+    Room room4 = new Room("Room 4", "You walk into the room, it looks like a tight library with toppled bookshelves and papers scattered on the floor.", "A gap in the fallen shelves reveals a passage north, and a low archway leads south.");
+
+    Room room5 = new Room("Room 5", "You walk into the room, it looks like a cold chamber covered in frost, with a frozen waterfall in the corner.", "The only way out is a frost-covered opening to the south.");
+
+    Room room6 = new Room("Room 6", "You walk into the room, it looks like a small forge with a rusted anvil and cold furnaces.", "Scorched walls give way to a passage north, and a soot-stained corridor continues south.");
+
+    Room room7 = new Room("Room 7", "You walk into the room, it looks like a dark chapel with broken statues and the smell of old wax.", "A cracked archway leads north, while a narrow gap beside a fallen statue opens east.");
+
+    Room room8 = new Room("Room 8", "You walk into the room, it looks like a small storeroom filled with empty barrels and a crooked lamp.", "Doorways branch off in three directions — north toward the cold, west into the dark, and east where faint light spills in.");
+
+    Room room9 = new Room("Room 9", "You walk into the room, it looks like a narrow guard post with a rusted suit of armor leaning against the wall.", "A rotted door creaks to the west, and a torch-lit corridor stretches north.");
 
 
     Room currentRoom = room1;
@@ -48,38 +56,58 @@ public class Adventure {
 
 
         while (!adventureIsDone) {
-            String commandInput = IO.readln("Input Direction(north, south, east, west): ");
+            IO.println("""
+                    1. Look around the room?
+                    2. Go to a new room?
+                    """);
+            String commandInput = IO.readln("What do you wanna do? ");
             switch (commandInput) {
-                case "north" -> {
-                    if (currentRoom.getNorth() != null){
-                        currentRoom = currentRoom.getNorth();
-                        IO.println("You go: North");
-
-                    } else {
-                    IO.println("You cant go North");}
+                case "1" -> {
+                    IO.println(currentRoom.doorDescription);
                 }
-                case "south" -> {
-                    if (currentRoom.getSouth() != null){
-                        currentRoom = currentRoom.getSouth();
-                        IO.println("You go: South");
-                    } else{
-                    IO.println("You cant go: South");}
-                }
-                case "east" -> {
-                    if (currentRoom.getEast() != null){
-                        currentRoom = currentRoom.getEast();
-                        IO.println("You go East");
-                    } else {
-                    IO.println("You cant go East");}
-                }
-                case "west" -> {
-                    if (currentRoom.getWest() != null){
-                        currentRoom = currentRoom.getWest();
-                        IO.println("You go West");
-                    } else {
-                    IO.println("You cant go West");
-                }}
+                case "2" -> {
+                    String directionInput = IO.readln("Input Direction(north, south, east, west): ");
+                    switch (directionInput) {
+                        case "north" -> {
+                            if (currentRoom.getNorth() != null) {
+                                currentRoom = currentRoom.getNorth();
+                                IO.println("You go: North");
+                                IO.println("You are now in " + currentRoom.name + currentRoom.description);
+                            } else {
+                                IO.println("You cant go North");
+                            }
+                        }
+                        case "south" -> {
+                            if (currentRoom.getSouth() != null) {
+                                currentRoom = currentRoom.getSouth();
+                                IO.println("You go: South");
+                                IO.println("You are now in " + currentRoom.name + currentRoom.description);
+                            } else {
+                                IO.println("You cant go: South");
+                            }
+                        }
+                        case "east" -> {
+                            if (currentRoom.getEast() != null) {
+                                currentRoom = currentRoom.getEast();
+                                IO.println("You go East");
+                                IO.println("You are now in " + currentRoom.name + currentRoom.description);
+                            } else {
+                                IO.println("You cant go East");
+                            }
+                        }
+                        case "west" -> {
+                            if (currentRoom.getWest() != null) {
+                                currentRoom = currentRoom.getWest();
+                                IO.println("You go West");
+                                IO.println("You are now in " + currentRoom.name + currentRoom.description);
+                            } else {
+                                IO.println("You cant go West");
+                            }
+                        }
+                    }
             }
+            }
+
         }
     }
 
