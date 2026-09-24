@@ -1,4 +1,89 @@
 public class Adventure {
+    private final Map map;
+    private final Player player;
+    private final UserInterface ui;
+
+    private boolean adventureIsDone = false;
+
+    public Adventure(){
+        map = new Map();
+        player = new Player(map.getFirstRoom());
+        ui = new UserInterface();
+    }
+
+    public void run(){
+        while(!adventureIsDone){
+
+            ui.showMenu();
+
+            String commandInput = ui.getCommand();
+
+            switch (commandInput){
+                case "1" -> {
+                    ui.showDoors(player.getCurrentRoom());
+                }
+                case "2" -> {
+                    for (int i = 0; i < 4; i++) {
+                        movePlayer();
+                        }
+
+                    ui.showDoors(player.getCurrentRoom());
+                }
+            }
+        }
+    }
+
+    private void movePlayer() {
+        String directionInput = ui.getDirection();
+
+        switch (directionInput) {
+            case "north" -> goNorth();
+            case "east" -> goEast();
+            case "south" -> goSouth();
+            case "west" -> goWest();
+        }
+    }
+
+    private void goNorth(){
+        if (player.goNorth()){
+            ui.showMovement("North");
+            ui.showRoom(player.getCurrentRoom());
+        } else {
+            ui.showCannotGo("North");
+        }
+    }
+
+    private void goSouth(){
+        if (player.goSouth()){
+            ui.showMovement("South");
+            ui.showRoom(player.getCurrentRoom());
+        } else {
+            ui.showCannotGo("South");
+        }
+    }
+
+    private void goWest(){
+        if (player.goWest()){
+            ui.showMovement("West");
+            ui.showRoom(player.getCurrentRoom());
+        } else {
+            ui.showCannotGo("West");
+        }
+    }
+
+    private void goEast(){
+        if (player.goWest()){
+            ui.showMovement("East");
+            ui.showRoom(player.getCurrentRoom());
+        } else {
+            ui.showCannotGo("East");
+        }
+    }
+
+
+
+
+    /*
     boolean adventureIsDone = false;
     Map map = new Map();
     Room firstRoom = map.getFirstRoom();
@@ -66,4 +151,6 @@ public class Adventure {
             }
         }
     }
+
+     */
 }
