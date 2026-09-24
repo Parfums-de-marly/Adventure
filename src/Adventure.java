@@ -1,18 +1,14 @@
 public class Adventure {
-    Room currentRoom = room1;
     boolean adventureIsDone = false;
-
+    Map map = new Map();
+    Room firstRoom = map.getFirstRoom();
 
     public Adventure() {
-        Room firstRoom = Map.getFirstRoom();
-    }
-
-
-    public Room getFirstRoom(){
-
     }
 
     public void run() {
+
+
         while (!adventureIsDone) {
             IO.println("""
                     1. Look around the room?

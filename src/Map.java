@@ -11,7 +11,7 @@ public class Map {
     final Room firstRoom = room1;
 
 
-    public Map(Room getFirstRoom){
+    public Map(){
         room1.setEast(room2);
         room2.setWest(room1);
 

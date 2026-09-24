@@ -1,4 +1,4 @@
 public class Player {
-
-    Room currentRoom = room1;
+    Adventure adventure = new Adventure();
+    Room currentRoom = adventure.firstRoom;
 }
