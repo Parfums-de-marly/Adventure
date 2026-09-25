@@ -17,7 +17,11 @@ public Map buildMap() {
     ArrayList<Item> room7Items = new ArrayList<>();
     ArrayList<Item> room8Items = new ArrayList<>();
     ArrayList<Item> room9Items = new ArrayList<>();
-    Item compass = new Item("Kompas", "Det gyldne kompas");
+
+    room1Items.add(new Item("Compass", "The Golden Compass"));
+    room2Items.add(new Item("Sword", "A Old Rusty Sword"));
+    room3Items.add(new Item("Key", "A little Golde Key"));
+
     Room room1 = new Room("Room 1", "You walk into the room, it looks like a small stone chamber with cold walls and a flickering torch.", "A narrow passage leads east, while a crumbling staircase descends south.", room1Items);
     Room room2 = new Room("Room 2", "You walk into the room, it looks like a cramped space filled with cobwebs and dusty chests.", "A cobweb-draped doorway leads west, and a faint draft hints at an opening to the east.", room2Items);
     Room room3 = new Room("Room 3", "You walk into the room, it looks like a small clearing with an old sacrificial stone in the middle.", "A worn path leads west back into the shadows, while a dark trail winds south.", room3Items);

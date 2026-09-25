@@ -29,7 +29,16 @@ public class UserInterface {
         for (Item item : room.getItems()){
             IO.println("You see: " + item.getLongName());
         }
+        IO.println(room.getDoorDescription());
 
+    }
+
+    public void showInventory(Player player){
+        IO.println("Inventory");
+
+        for (Item item : player.getInventory()){
+            IO.println("- " + item.getLongName());
+        }
     }
 
     public void showDoors(Room room){
@@ -53,6 +62,6 @@ public class UserInterface {
     }
 
     public void itemDrop(String itemName){
-        IO.println("You have picked up a " + itemName);
+        IO.println("You have dropped " + itemName);
     }
 }

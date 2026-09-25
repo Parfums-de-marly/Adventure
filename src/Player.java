@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 public class Player {
-    ArrayList<Item> inventory = new ArrayList<>();
+
+    private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
 
     public Player(Room startingRoom) {
@@ -11,14 +12,6 @@ public class Player {
     public boolean goNorth() {
         if (currentRoom.getNorth() != null) {
             currentRoom = currentRoom.getNorth();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean goWest() {
-        if (currentRoom.getWest() != null) {
-            currentRoom = currentRoom.getWest();
             return true;
         }
         return false;
@@ -40,12 +33,21 @@ public class Player {
         return false;
     }
 
+    public boolean goWest() {
+        if (currentRoom.getWest() != null) {
+            currentRoom = currentRoom.getWest();
+            return true;
+        }
+        return false;
+    }
+
     public Item findItem(String shortName) {
         for (Item item : inventory) {
             if (item.getShortName().equalsIgnoreCase(shortName)) {
                 return item;
             }
         }
+
         return null;
     }
 
@@ -71,6 +73,10 @@ public class Player {
         }
 
         return null;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 
     public Room getCurrentRoom() {
