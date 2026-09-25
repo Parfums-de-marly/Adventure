@@ -27,31 +27,38 @@ public class Adventure {
             String commandInput = ui.getCommand();
 
             switch (commandInput){
-                case "1" -> {
-                    ui.showDoors(player.getCurrentRoom());
-                }
-                case "2" -> {
-                    for (int i = 0; i < 4; i++) {
-                        movePlayer();
-                        }
+                case "1" -> ui.showDoors(player.getCurrentRoom());
 
+                case "2" -> {
+                    movePlayer();
                     ui.showDoors(player.getCurrentRoom());
                 }
                 case "3" -> {
                     String itemName = ui.askWhichItem();
-                    if(player.pickUpItem(itemName)){
-                        ui.itemPickup(itemName);
-                    }
 
+                    Item item = player.takeItem(itemName);
+
+                    if (item != null) {
+                        ui.itemPickup(item.getLongName());
+                    } else {
+                        IO.println("There is nothing like " + itemName + " to take around here");
+                    }
                 }
+
                 case "4" -> {
-                    if(player.dropItem(ui.askWhichItem())) {
-                        ui.itemDrop(ui.askWhichItem());
+                    String itemName = ui.askWhichItem();
+
+                    Item item = player.dropItem(itemName);
+
+                    if (item != null) {
+                        ui.itemDrop(item.getLongName());
+                    } else {
+                        IO.println("You don't have anything like " + itemName + " in your inventory");
                     }
                 }
-                case "5" -> {
 
-                }
+                case "5" -> ui.showInventory(player);
+
             }
         }
     }

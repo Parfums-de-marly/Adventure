@@ -1,8 +1,8 @@
-
 import java.util.ArrayList;
 
 public class Player {
-    ArrayList<Item> inventory = new ArrayList<>();
+
+    private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
 
     public Player(Room startingRoom) {
@@ -15,16 +15,6 @@ public class Player {
             return true;
         }
         return false;
-
-    }
-
-    public boolean goWest() {
-        if (currentRoom.getWest() != null) {
-            currentRoom = currentRoom.getWest();
-            return true;
-        }
-        return false;
-
     }
 
     public boolean goEast() {
@@ -33,7 +23,6 @@ public class Player {
             return true;
         }
         return false;
-
     }
 
     public boolean goSouth() {
@@ -42,41 +31,55 @@ public class Player {
             return true;
         }
         return false;
-
     }
 
+    public boolean goWest() {
+        if (currentRoom.getWest() != null) {
+            currentRoom = currentRoom.getWest();
+            return true;
+        }
+        return false;
+    }
 
-    public boolean dropItem(String askWhichItem) {
+    public Item findItem(String shortName) {
         for (Item item : inventory) {
-            if (item.getShortName().equalsIgnoreCase(askWhichItem)) {
-                inventory.remove(item);
-                currentRoom.getItems().add(item);
-                return true;
+            if (item.getShortName().equalsIgnoreCase(shortName)) {
+                return item;
             }
         }
-        return false;
+
+        return null;
     }
 
-    public boolean pickUpItem(String askWhichItem) {
-        for (Item item : currentRoom.getItems()) {
-            if (item.getShortName().equalsIgnoreCase(askWhichItem)) {
-                currentRoom.getItems().remove(item);
-                inventory.add(item);
-                return true;
-            }
+    public Item takeItem(String shortName) {
+        Item item = currentRoom.findItem(shortName);
+
+        if (item != null) {
+            currentRoom.removeItem(item);
+            inventory.add(item);
+            return item;
         }
-        return false;
+
+        return null;
+    }
+
+    public Item dropItem(String shortName) {
+        Item item = findItem(shortName);
+
+        if (item != null) {
+            inventory.remove(item);
+            currentRoom.addItem(item);
+            return item;
+        }
+
+        return null;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
-
 }
-
-/*
-- Lav en View Inventory metode
-- Opdater "look around the room" metode, så den både viser dørene,
-  men den også viser items på jorden så spiller ved hvad de kan samle op
-- Evt. mere som står på opgave?
- */
