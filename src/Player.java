@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 
 public class Player {
-    ArrayList <Item> inventory = new ArrayList<>();
+    ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
 
     public Player(Room startingRoom) {
@@ -35,6 +35,7 @@ public class Player {
         return false;
 
     }
+
     public boolean goSouth() {
         if (currentRoom.getSouth() != null) {
             currentRoom = currentRoom.getSouth();
@@ -45,9 +46,9 @@ public class Player {
     }
 
 
-    public boolean dropItem(String askWhichItem){
-        for(Item item : inventory){
-            if(item.getShortName().equalsIgnoreCase(askWhichItem)){
+    public boolean dropItem(String askWhichItem) {
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(askWhichItem)) {
                 inventory.remove(item);
                 currentRoom.getItems().add(item);
                 return true;
@@ -56,22 +57,18 @@ public class Player {
         return false;
     }
 
-    public boolean pickUpItem(String askWhichItem, ArrayList<Room> getRooms){
-        for(Room rooms_ : getRooms){
-            if(rooms_ == currentRoom){
-                for (Item item : currentRoom.getItems()){
-                    if(item.getShortName().equalsIgnoreCase(askWhichItem)){
-                        currentRoom.getItems().remove(item);
-                        inventory.add(item);
-                        return true;
-                    }
-                }
+    public boolean pickUpItem(String askWhichItem) {
+        for (Item item : currentRoom.getItems()) {
+            if (item.getShortName().equalsIgnoreCase(askWhichItem)) {
+                currentRoom.getItems().remove(item);
+                inventory.add(item);
+                return true;
             }
         }
         return false;
     }
 
-    public Room getCurrentRoom(){
+    public Room getCurrentRoom() {
         return currentRoom;
     }
 

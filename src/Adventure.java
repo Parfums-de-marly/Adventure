@@ -14,14 +14,14 @@ public class Adventure {
     }
 
     public void run(){
+        ui.showStartScreen();
+        try {
+            // Pause the program for 3 seconds
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         while(!adventureIsDone){
-            ui.showStartScreen();
-            try {
-                // Pause the program for 3 seconds
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
             ui.showMenu();
 
             String commandInput = ui.getCommand();
@@ -38,8 +38,9 @@ public class Adventure {
                     ui.showDoors(player.getCurrentRoom());
                 }
                 case "3" -> {
-                    if(player.pickUpItem(ui.askWhichItem(), map.getRooms())){
-                        ui.itemPickup(ui.askWhichItem());
+                    String itemName = ui.askWhichItem();
+                    if(player.pickUpItem(itemName)){
+                        ui.itemPickup(itemName);
                     }
 
                 }
