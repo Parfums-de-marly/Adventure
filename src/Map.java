@@ -15,7 +15,7 @@ public class Map {
     final Room firstRoom = room1;
 
 
-    public Map(){
+    public Map(ArrayList<Room> rooms){
         room1.setEast(room2);
         room2.setWest(room1);
 
