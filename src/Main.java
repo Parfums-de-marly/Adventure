@@ -10,9 +10,8 @@ public Map buildMap() {
 
     ArrayList<Item> room1Items = new ArrayList<>();
     room1Items.add(new Item("Kompas", "Det gyldne kompas"));
-
-    Room room2 = new Room("Room 2", "You walk into the room, it looks like a cramped space filled with cobwebs and dusty chests.", "A cobweb-draped doorway leads west, and a faint draft hints at an opening to the east.");
     Room room1 = new Room("Room 1", "You walk into the room, it looks like a small stone chamber with cold walls and a flickering torch.", "A narrow passage leads east, while a crumbling staircase descends south.", room1Items);
+    Room room2 = new Room("Room 2", "You walk into the room, it looks like a cramped space filled with cobwebs and dusty chests.", "A cobweb-draped doorway leads west, and a faint draft hints at an opening to the east.");
     Room room3 = new Room("Room 3", "You walk into the room, it looks like a small clearing with an old sacrificial stone in the middle.", "A worn path leads west back into the shadows, while a dark trail winds south.");
     Room room4 = new Room("Room 4", "You walk into the room, it looks like a tight library with toppled bookshelves and papers scattered on the floor.", "A gap in the fallen shelves reveals a passage north, and a low archway leads south.");
     Room room5 = new Room("Room 5", "You walk into the room, it looks like a cold chamber covered in frost, with a frozen waterfall in the corner.", "The only way out is a frost-covered opening to the south.");

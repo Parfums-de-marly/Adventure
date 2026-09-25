@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 public class Adventure {
     private final Map map;
@@ -37,8 +38,7 @@ public class Adventure {
                     ui.showDoors(player.getCurrentRoom());
                 }
                 case "3" -> {
-                    player.getCurrentRoomItems(map.getItemList());
-                    if(player.pickUpItem(ui.askWhichItem())){
+                    if(player.pickUpItem(ui.askWhichItem(), map.getRooms())){
                         ui.itemPickup(ui.askWhichItem());
                     }
 
