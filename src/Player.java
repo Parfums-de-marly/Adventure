@@ -73,3 +73,10 @@ public class Player {
     }
 
 }
+
+/*
+- Lav en View Inventory metode
+- Opdater "look around the room" metode, så den både viser dørene,
+  men den også viser items på jorden så spiller ved hvad de kan samle op
+- Evt. mere som står på opgave?
+ */
