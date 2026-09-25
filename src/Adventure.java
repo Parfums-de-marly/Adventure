@@ -37,51 +37,40 @@ public class Adventure {
         String directionInput = ui.getDirection();
 
         switch (directionInput) {
-            case "north" -> goNorth();
-            case "east" -> goEast();
-            case "south" -> goSouth();
-            case "west" -> goWest();
+            case "north" -> {
+                if (player.goNorth()){
+                    ui.showMovement("North");
+                    ui.showRoom(player.getCurrentRoom());
+                } else {
+                    ui.showCannotGo("North");
+                }
+            }
+            case "east" -> {
+                if (player.goEast()){
+                    ui.showMovement("East");
+                    ui.showRoom(player.getCurrentRoom());
+                } else {
+                    ui.showCannotGo("East");
+                }
+            }
+            case "south" -> {
+                if (player.goSouth()){
+                    ui.showMovement("South");
+                    ui.showRoom(player.getCurrentRoom());
+                } else {
+                    ui.showCannotGo("South");
+                }
+            }
+            case "west" -> {
+                if (player.goWest()){
+                    ui.showMovement("West");
+                    ui.showRoom(player.getCurrentRoom());
+                } else {
+                    ui.showCannotGo("West");
+                }
+            }
         }
     }
-
-    private void goNorth(){
-        if (player.goNorth()){
-            ui.showMovement("North");
-            ui.showRoom(player.getCurrentRoom());
-        } else {
-            ui.showCannotGo("North");
-        }
-    }
-
-    private void goSouth(){
-        if (player.goSouth()){
-            ui.showMovement("South");
-            ui.showRoom(player.getCurrentRoom());
-        } else {
-            ui.showCannotGo("South");
-        }
-    }
-
-    private void goWest(){
-        if (player.goWest()){
-            ui.showMovement("West");
-            ui.showRoom(player.getCurrentRoom());
-        } else {
-            ui.showCannotGo("West");
-        }
-    }
-
-    private void goEast(){
-        if (player.goEast()){
-            ui.showMovement("East");
-            ui.showRoom(player.getCurrentRoom());
-        } else {
-            ui.showCannotGo("East");
-        }
-    }
-
-
-
 
     /*
     boolean adventureIsDone = false;
