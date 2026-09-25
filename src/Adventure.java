@@ -72,7 +72,7 @@ public class Adventure {
     }
 
     private void goEast(){
-        if (player.goWest()){
+        if (player.goEast()){
             ui.showMovement("East");
             ui.showRoom(player.getCurrentRoom());
         } else {
