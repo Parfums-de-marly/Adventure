@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Map {
     private final Room room1 = new Room("Room 1", "You walk into the room, it looks like a small stone chamber with cold walls and a flickering torch.", "A narrow passage leads east, while a crumbling staircase descends south.");
     private final Room room2 = new Room("Room 2", "You walk into the room, it looks like a cramped space filled with cobwebs and dusty chests.", "A cobweb-draped doorway leads west, and a faint draft hints at an opening to the east.");
@@ -45,5 +47,8 @@ public class Map {
 
     public Room getFirstRoom(){
         return firstRoom;
+    }
+    public ArrayList<Item> getItemList(){
+        return room.items;
     }
 }
