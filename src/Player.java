@@ -1,6 +1,8 @@
+
 import java.util.ArrayList;
 
 public class Player {
+    ArrayList <Item> inventory = new ArrayList<>();
     private Room currentRoom;
     private ArrayList<Item> items;
 
@@ -43,8 +45,35 @@ public class Player {
 
     }
 
+
+    public boolean dropItem(String askWhichItem){
+        for(Item item : inventory){
+            if(item.getName.equalsIgnoreCase(askWhichItem)){
+                inventory.remove(item);
+                getCurrentRoomItems.add(item);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean pickUpItem(String askWhichItem){
+        for (Item item : itemList){
+            if(item.getName.equalsIgnoreCase(askWhichItem)){
+                getCurrentRoomItems().remove(item);
+                inventory.add(item);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Room getCurrentRoom(){
         return currentRoom;
+    }
+
+    public ArrayList<Item> getCurrentRoomItems(ArrayList<Item> getItemList){
+        return
     }
 
 }
