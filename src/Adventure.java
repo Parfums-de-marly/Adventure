@@ -6,8 +6,8 @@ public class Adventure {
 
     private boolean adventureIsDone = false;
 
-    public Adventure(){
-        map = new Map();
+    public Adventure(Map map){
+        this.map = map;
         player = new Player(map.getFirstRoom());
         ui = new UserInterface();
     }

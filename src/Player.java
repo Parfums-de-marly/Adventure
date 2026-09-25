@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Player {
     ArrayList <Item> inventory = new ArrayList<>();
     private Room currentRoom;
+    private ArrayList<Item> items;
 
     public Player(Room startingRoom) {
         currentRoom = startingRoom;

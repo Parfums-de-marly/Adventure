@@ -25,30 +25,18 @@ public class Map {
         room4.setNorth(room1);
         room1.setSouth(room4);
 
-        room3.setSouth(room6);
-        room6.setNorth(room3);
+public class Map {
+    private final ArrayList<Room> rooms;
 
-        room6.setSouth(room9);
-        room9.setNorth(room6);
-
-        room9.setWest(room8);
-        room8.setEast(room9);
-
-        room8.setNorth(room5);
-        room5.setSouth(room8);
-
-        room8.setWest(room7);
-        room7.setEast(room8);
-
-        room7.setNorth(room4);
-        room4.setSouth(room7);
-
+    public Map(ArrayList<Room> rooms){
+        this.rooms = rooms;
     }
 
-    public Room getFirstRoom(){
-        return firstRoom;
+    public Room getFirstRoom() {
+       return rooms.getFirst();
     }
     public ArrayList<Item> getItemList(){
         return room.items;
     }
+
 }
