@@ -26,6 +26,10 @@ public class UserInterface {
     public void showRoom(Room room){
         IO.println(room.getName() + " " + room.getDescription());
 
+        for (Item item : room.getItems()){
+            IO.println("You see: " + item.getLongName());
+        }
+
     }
 
     public void showDoors(Room room){
