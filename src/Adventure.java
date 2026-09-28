@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 public class Adventure {
     private final Map map;
@@ -7,8 +6,8 @@ public class Adventure {
 
     private boolean adventureIsDone = false;
 
-    public Adventure(Map map){
-        this.map = map;
+    public Adventure(){
+        this.map = new Map();
         player = new Player(map.getFirstRoom());
         ui = new UserInterface();
     }

@@ -18,10 +18,6 @@ public class Room {
         this.items = items;
     }
 
-    public Room(String name, String description, String doorDescription) {
-        this(name, description, doorDescription, new ArrayList<>());
-    }
-
     public ArrayList<Item> getItems(){
         return items;
     }
