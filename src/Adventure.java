@@ -17,7 +17,7 @@ public class Adventure {
         ui.showStartScreen();
         try {
             // Pause the program for 3 seconds
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -41,7 +41,7 @@ public class Adventure {
                     if (item != null) {
                         ui.itemPickup(item.getLongName());
                     } else {
-                        IO.println("There is nothing like " + itemName + " to take around here");
+                        IO.println(itemName + " is either not here, or is too heavy");
                     }
                 }
 
