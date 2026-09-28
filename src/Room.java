@@ -78,9 +78,9 @@ public class Room {
         items.remove(item);
     }
 
-    public Item findItem(String shortName) {
+    public Item findItem(String name) {
         for (Item item : items) {
-            if (item.getShortName().equalsIgnoreCase(shortName)) {
+            if (item.matches(name)) {
                 return item;
             }
         }
