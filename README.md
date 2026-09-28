@@ -11,3 +11,6 @@
 
 // om tænk måden vi printer maxweight og currentweight (Fixed)
 29.08.2026 
+
+Future fixes:
+// item is either not here, or is too heavy - lav til to beskeder der bliver hentet ud efter bestemt senarie. 
