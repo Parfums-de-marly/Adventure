@@ -29,8 +29,6 @@ public class UserInterface {
         for (Item item : room.getItems()){
             IO.println("You see: " + item.getLongName());
         }
-        IO.println(room.getDoorDescription());
-
     }
 
     public void showInventory(Player player){
