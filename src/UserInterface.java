@@ -29,8 +29,6 @@ public class UserInterface {
         for (Item item : room.getItems()){
             IO.println("You see: " + item.getLongName());
         }
-        IO.println(room.getDoorDescription());
-
     }
 
     public void showInventory(Player player){
@@ -46,11 +44,11 @@ public class UserInterface {
     }
 
     public void showMovement(String direction){
-        IO.println("You go: " + direction);
+        IO.println("You Went: " + direction);
     }
 
     public void showCannotGo(String direction){
-        IO.println("You cant go: " + direction);
+        IO.println("It's Not Possible To Go: " + direction);
     }
 
     public String askWhichItem(){
@@ -58,10 +56,10 @@ public class UserInterface {
     }
 
     public void itemPickup(String itemName){
-        IO.println("You have picked up a " + itemName);
+        IO.println("You picked up a " + itemName);
     }
 
     public void itemDrop(String itemName){
-        IO.println("You have dropped " + itemName);
+        IO.println("You Dropped " + itemName);
     }
 }
