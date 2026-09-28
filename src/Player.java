@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 
 public class Player {
+
     private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
-    private int maxWeight = 6;
-    private int currentWeight = 0;
 
     public Player(Room startingRoom) {
         currentRoom = startingRoom;
@@ -54,18 +53,14 @@ public class Player {
 
     public Item takeItem(String shortName) {
         Item item = currentRoom.findItem(shortName);
-        if (item == null) return null;
 
-        boolean isOverweight = (item.getWeight() + currentWeight) > maxWeight;
-        if (isOverweight) return null;
+        if (item != null) {
+            currentRoom.removeItem(item);
+            inventory.add(item);
+            return item;
+        }
 
-        currentRoom.removeItem(item);
-        inventory.add(item);
-        currentWeight += item.getWeight();
-        IO.println("Current inventory weight: " + currentWeight);
-        IO.println("Max weight: " + maxWeight);
-        return item;
-
+        return null;
     }
 
     public Item dropItem(String shortName) {
@@ -74,9 +69,6 @@ public class Player {
         if (item != null) {
             inventory.remove(item);
             currentRoom.addItem(item);
-            currentWeight -= item.getWeight();
-            IO.println("Current inventory weight: " + currentWeight);
-            IO.println("Max weight: " + maxWeight);
             return item;
         }
 
@@ -89,13 +81,5 @@ public class Player {
 
     public Room getCurrentRoom() {
         return currentRoom;
-    }
-
-    public int getMaxWeight(){
-        return maxWeight;
-    }
-
-    public int getCurrentWeight(){
-        return currentWeight;
     }
 }
