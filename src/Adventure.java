@@ -26,7 +26,10 @@ public class Adventure {
             String commandInput = ui.getCommand();
 
             switch (commandInput){
-                case "1" -> ui.showDoors(player.getCurrentRoom());
+                case "1" -> {
+                    ui.showDoors(player.getCurrentRoom());
+                    ui.showItem(player.getCurrentRoom());
+                }
 
                 case "2" -> {
                     movePlayer();
@@ -39,18 +42,24 @@ public class Adventure {
 
                     if (item != null) {
                         ui.itemPickup(item.getLongName());
+
+                        IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
                     } else {
                         IO.println(itemName + " is either not here, or is too heavy");
                     }
                 }
 
                 case "4" -> {
+                    ui.showInventory(player);
+
                     String itemName = ui.askWhichItem();
 
                     Item item = player.dropItem(itemName);
 
                     if (item != null) {
                         ui.itemDrop(item.getLongName());
+                        IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
+
                     } else {
                         IO.println("You don't have anything like " + itemName + " in your inventory");
                     }
@@ -58,12 +67,13 @@ public class Adventure {
 
                 case "5" -> ui.showInventory(player);
 
+
             }
         }
     }
 
     private void movePlayer() {
-        String directionInput = ui.getDirection();
+        String directionInput = ui.getDirection().trim().toLowerCase();
 
         switch (directionInput) {
             case "north" -> {

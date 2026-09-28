@@ -63,8 +63,7 @@ public class Player {
         currentRoom.removeItem(item);
         inventory.add(item);
         currentWeight += item.getWeight();
-        IO.println("Current inventory weight: " + currentWeight);
-        IO.println("Max weight: " + maxWeight);
+
         return item;
     }
 
@@ -75,11 +74,11 @@ public class Player {
             inventory.remove(item);
             currentRoom.addItem(item);
             currentWeight -= item.getWeight();
-            IO.println("Current inventory weight: " + currentWeight);
-            IO.println("Max weight: " + maxWeight);
+
             return item;
         }
-         return null;
+
+        return null;
     }
 
     public ArrayList<Item> getInventory() {

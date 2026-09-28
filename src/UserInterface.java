@@ -27,7 +27,7 @@ public class UserInterface {
         IO.println(room.getName() + " " + room.getDescription());
 
         for (Item item : room.getItems()){
-            IO.println("You see: " + item.getLongName());
+            IO.println("You see: " + item.getLongName() + " (" + item.getShortName() + ")");
         }
     }
 
@@ -39,6 +39,11 @@ public class UserInterface {
         }
     }
 
+    public void showItem(Room room){
+        for (Item item : room.getItems()){
+            IO.println("You see: " + item.getLongName() + " (" + item.getShortName() + ")");
+        }
+    }
     public void showDoors(Room room){
         IO.println(room.getDoorDescription());
     }
@@ -56,10 +61,9 @@ public class UserInterface {
     }
 
     public void itemPickup(String itemName){
-        IO.println("You picked up a " + itemName);
+        IO.println("You picked up " + itemName);
     }
 
-    public void itemDrop(String itemName){
-        IO.println("You Dropped " + itemName);
+    public void itemDrop(String itemName){IO.println("You Dropped " + itemName);
     }
 }
