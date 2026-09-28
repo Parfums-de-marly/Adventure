@@ -1,6 +1,5 @@
 void main() {
-    Adventure adventure = new Adventure(buildMap());
-
+    Adventure adventure = new Adventure();
     adventure.run();
 }
 

@@ -18,40 +18,52 @@ public class Room {
         this.items = items;
     }
 
-    public Room(String name, String description, String doorDescription) {
-        this(name, description, doorDescription, new ArrayList<>());
-    }
-
     public ArrayList<Item> getItems(){
         return items;
     }
 
     public void setNorth(Room room) {
-        north = room;
+        if (this.north == room) return;   // allerede sat – stop rekursionen
+        this.north = room;
+        if (room != null) {
+            room.setSouth(this);
+        }
     }
 
     public Room getNorth() {
         return north;
     }
 
-    public void setEast(Room room) {
-        east = room;
-    }
-
-    public Room getEast() {
-        return east;
-    }
-
     public void setSouth(Room room) {
-        south = room;
+        if (this.south == room) return;
+        this.south = room;
+        if (room != null) {
+            room.setNorth(this);
+        }
     }
 
     public Room getSouth() {
         return south;
     }
 
+    public void setEast(Room room) {
+        if (this.east == room) return;
+        this.east = room;
+        if (room != null) {
+            room.setWest(this);
+        }
+    }
+
+    public Room getEast() {
+        return east;
+    }
+
     public void setWest(Room room) {
-        west = room;
+        if (this.west == room) return;
+        this.west = room;
+        if (room != null) {
+            room.setEast(this);
+        }
     }
 
     public Room getWest() {
@@ -78,9 +90,9 @@ public class Room {
         items.remove(item);
     }
 
-    public Item findItem(String shortName) {
+    public Item findItem(String name) {
         for (Item item : items) {
-            if (item.getShortName().equalsIgnoreCase(shortName)) {
+            if (item.matches(name)) {
                 return item;
             }
         }
