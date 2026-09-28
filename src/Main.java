@@ -20,7 +20,7 @@ public Map buildMap() {
 
     room1Items.add(new Item("Compass", "The Golden Compass"));
     room2Items.add(new Item("Sword", "A Old Rusty Sword"));
-    room3Items.add(new Item("Key", "A little Golde Key"));
+    room3Items.add(new Item("Key", "A little Golden Key"));
 
     Room room1 = new Room("Room 1", "You walk into the room, it looks like a small stone chamber with cold walls and a flickering torch.", "A narrow passage leads east, while a crumbling staircase descends south.", room1Items);
     Room room2 = new Room("Room 2", "You walk into the room, it looks like a cramped space filled with cobwebs and dusty chests.", "A cobweb-draped doorway leads west, and a faint draft hints at an opening to the east.", room2Items);
