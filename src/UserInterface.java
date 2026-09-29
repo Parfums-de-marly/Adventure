@@ -12,6 +12,8 @@ public class UserInterface {
                 3. Pick up Item?
                 4. Drop Item?
                 5. View Inventory?
+                
+                7. Eat?
                 """);
     }
 
@@ -65,5 +67,9 @@ public class UserInterface {
     }
 
     public void itemDrop(String itemName){IO.println("You Dropped " + itemName);
+    }
+
+    public String itemToEat(){
+        return IO.readln("What would you like to eat?: ");
     }
 }

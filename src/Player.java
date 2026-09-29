@@ -6,6 +6,7 @@ public class Player {
     private Room currentRoom;
     private int maxWeight = 6;
     private int currentWeight = 0;
+    private int playerHealth = 100;
 
     public Player(Room startingRoom) {
         currentRoom = startingRoom;
@@ -53,6 +54,34 @@ public class Player {
         return null;
     }
 
+    public EatResult eatItem(String shortname) {
+        if (inventory.isEmpty() && currentRoom.getItems().isEmpty()) {
+            return EatResult.NOT_FOUND;
+        }
+        for (Item item : inventory) {
+            if (item instanceof Food) {
+                if (item.getShortName().equals(shortname)){
+                    playerHealth += ((Food) item).getHealtPoints();
+                    return EatResult.EATEN;
+                }
+
+            } else {
+                return EatResult.NOT_FOOD;
+            }
+        }
+
+        for (Item item : currentRoom.getItems()) {
+            if (item instanceof Food) {
+                playerHealth += ((Food) item).getHealtPoints();
+                return EatResult.EATEN;
+            } else {
+                return EatResult.NOT_FOOD;
+            }
+        }
+        return EatResult.NOT_FOUND;
+
+    }
+
     public Item takeItem(String shortName) {
         Item item = currentRoom.findItem(shortName);
         if (item == null) return null;
@@ -89,11 +118,11 @@ public class Player {
         return currentRoom;
     }
 
-    public int getMaxWeight(){
+    public int getMaxWeight() {
         return maxWeight;
     }
 
-    public int getCurrentWeight(){
+    public int getCurrentWeight() {
         return currentWeight;
     }
 }
