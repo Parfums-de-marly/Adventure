@@ -24,11 +24,13 @@ public class UserInterface {
     }
 
     public void showRoom(Room room){
+        StringBuilder itemsShown = new StringBuilder();
         IO.println(room.getName() + " " + room.getDescription());
 
         for (Item item : room.getItems()){
-            IO.println("You see: " + item.getLongName());
+            itemsShown.append(item.getLongName());
         }
+        IO.println("You see a.. " + itemsShown + " ");
     }
 
     public void showInventory(Player player){
@@ -41,6 +43,12 @@ public class UserInterface {
 
     public void showDoors(Room room){
         IO.println(room.getDoorDescription());
+        StringBuilder itemsShown = new StringBuilder();
+
+        for (Item item : room.getItems()){
+            itemsShown.append("\n" + item.getLongName());
+        }
+        IO.println("You see:" + itemsShown);
     }
 
     public void showMovement(String direction){

@@ -8,18 +8,21 @@ public class Adventure {
 
     public Adventure(){
         this.map = new Map();
-        player = new Player(map.getFirstRoom());
+        player = new Player(map.getFirstRoom(), 100);
         ui = new UserInterface();
     }
 
     public void run(){
         ui.showStartScreen();
+        /*
         try {
             // Pause the program for 3 seconds
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+         */
         while(!adventureIsDone){
             ui.showMenu();
 

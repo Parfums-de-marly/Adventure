@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
 public class Player {
-
     private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
+    final int playerHealth;
 
-    public Player(Room startingRoom) {
+    public Player(Room startingRoom, int playerHealth) {
         currentRoom = startingRoom;
+        this.playerHealth = playerHealth;
     }
 
     public boolean goNorth() {
