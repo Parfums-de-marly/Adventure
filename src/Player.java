@@ -3,7 +3,9 @@ import java.util.ArrayList;
 public class Player {
     private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
-    int playerHealth;
+    private int maxWeight = 6;
+    private int currentWeight = 0;
+    private int playerHealth = 100;
 
     public Player(Room startingRoom, int playerHealth) {
         currentRoom = startingRoom;
@@ -58,7 +60,7 @@ public class Player {
         }
         for (Item item : inventory) {
             if (item instanceof Food) {
-                if (item.getShortName().equals(shortname)){
+                if (item.getShortName().equals(shortname)) {
                     playerHealth += ((Food) item).getHealtPoints();
                     return EatResult.EATEN;
                 }
@@ -82,13 +84,14 @@ public class Player {
 
     public Item takeItem(String shortName) {
         Item item = currentRoom.findItem(shortName);
-
         if (item != null) {
+            boolean isOverweight = (item.getWeight() + currentWeight) > maxWeight;
+            if (isOverweight) return null;
             currentRoom.removeItem(item);
             inventory.add(item);
+            currentWeight += item.getWeight();
             return item;
         }
-
         return null;
     }
 
@@ -110,6 +113,14 @@ public class Player {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public int getCurrentWeight(){
+        return currentWeight;
+    }
+
+    public int getMaxWeight(){
+        return maxWeight;
     }
 
 }
