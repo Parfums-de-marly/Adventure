@@ -71,7 +71,7 @@ public class Adventure {
 
                 case "7" -> {
                     ui.showInventory(player);
-                    ui.lookAround(player.getCurrentRoom());
+                    ui.showDoors(player.getCurrentRoom());
                     EatResult eatResult = player.eatItem(ui.itemToEat());
 
 
