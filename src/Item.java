@@ -3,12 +3,6 @@ public class Item {
     private String longName;
     private int weight;
 
-    public Item(String longName) {
-        this.longName = longName;
-        this.shortName = extractShortName(longName);
-    }
-
-
     public Item(String shortName, String longName, int weight) {
         this.shortName = shortName;
         this.longName = longName;

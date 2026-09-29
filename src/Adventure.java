@@ -31,7 +31,6 @@ public class Adventure {
             switch (commandInput){
                 case "1" -> {
                     ui.showDoors(player.getCurrentRoom());
-                    ui.showItem(player.getCurrentRoom());
                 }
 
                 case "2" -> {
