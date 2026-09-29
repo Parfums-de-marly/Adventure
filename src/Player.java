@@ -96,4 +96,16 @@ public class Player {
     public int getCurrentWeight(){
         return currentWeight;
     }
+
+   private int health = 100;
+
+    public int getHealth() {
+        return health;
+
+    }
+
+    public void addHealth(int points) {
+        health += points;
+
+    }
 }

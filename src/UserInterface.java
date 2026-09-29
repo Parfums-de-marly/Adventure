@@ -12,6 +12,7 @@ public class UserInterface {
                 3. Pick up Item?
                 4. Drop Item?
                 5. View Inventory?
+                6. Show Health?
                 """);
     }
 
@@ -38,6 +39,27 @@ public class UserInterface {
             IO.println("- " + item.getLongName());
         }
     }
+
+    public void showHealth(Player player){
+        int hp = player.getHealth();
+        IO.println("Health: " + hp + " - " + healthStatus(hp));
+    }
+
+    private String healthStatus(int hp) {
+        if (hp >=100) {
+            return "You are in perfect health condition ";
+        } else if (hp >= 50) {
+            return "You are in good health condition, but avoid fighting right now ";
+        } else if (hp >=25) {
+            return "You are in poor health condition, you should heal";
+        } else if (hp >=0) {
+            return "You are in critical health condition, you should heal immediately";
+        } else {
+            return "You are dead. ";
+        }
+
+    }
+
 
     public void showItem(Room room){
         for (Item item : room.getItems()){

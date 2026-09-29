@@ -6,13 +6,13 @@ public class Adventure {
 
     private boolean adventureIsDone = false;
 
-    public Adventure(){
+    public Adventure() {
         this.map = new Map();
         player = new Player(map.getFirstRoom());
         ui = new UserInterface();
     }
 
-    public void run(){
+    public void run() {
         ui.showStartScreen();
         try {
             // Pause the program for 3 seconds
@@ -20,12 +20,12 @@ public class Adventure {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        while(!adventureIsDone){
+        while (!adventureIsDone) {
             ui.showMenu();
 
             String commandInput = ui.getCommand();
 
-            switch (commandInput){
+            switch (commandInput) {
                 case "1" -> {
                     ui.showDoors(player.getCurrentRoom());
                     ui.showItem(player.getCurrentRoom());
@@ -68,6 +68,7 @@ public class Adventure {
                 case "5" -> ui.showInventory(player);
 
 
+                case "6" -> ui.showHealth(player);
             }
         }
     }
