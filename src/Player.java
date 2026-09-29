@@ -1,15 +1,13 @@
 import java.util.ArrayList;
 
 public class Player {
-
     private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
-    private int maxWeight = 6;
-    private int currentWeight = 0;
-    private int playerHealth = 100;
+    int playerHealth;
 
-    public Player(Room startingRoom) {
+    public Player(Room startingRoom, int playerHealth) {
         currentRoom = startingRoom;
+        this.playerHealth = playerHealth;
     }
 
     public boolean goNorth() {
@@ -84,16 +82,14 @@ public class Player {
 
     public Item takeItem(String shortName) {
         Item item = currentRoom.findItem(shortName);
-        if (item == null) return null;
 
-        boolean isOverweight = (item.getWeight() + currentWeight) > maxWeight;
-        if (isOverweight) return null;
+        if (item != null) {
+            currentRoom.removeItem(item);
+            inventory.add(item);
+            return item;
+        }
 
-        currentRoom.removeItem(item);
-        inventory.add(item);
-        currentWeight += item.getWeight();
-
-        return item;
+        return null;
     }
 
     public Item dropItem(String shortName) {
@@ -102,8 +98,6 @@ public class Player {
         if (item != null) {
             inventory.remove(item);
             currentRoom.addItem(item);
-            currentWeight -= item.getWeight();
-
             return item;
         }
 
@@ -118,11 +112,4 @@ public class Player {
         return currentRoom;
     }
 
-    public int getMaxWeight() {
-        return maxWeight;
-    }
-
-    public int getCurrentWeight() {
-        return currentWeight;
-    }
 }
