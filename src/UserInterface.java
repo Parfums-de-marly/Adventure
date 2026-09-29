@@ -76,4 +76,10 @@ public class UserInterface {
     public String itemToEat(){
         return IO.readln("What would you like to eat?: ");
     }
+
+    public void itemEaten(EatResult eatResult, String itemName, int healthChange) {
+        if (eatResult.equals(EatResult.EATEN)){
+            IO.println("You ate " + itemName + " .Health difference: " + healthChange);
+        }
+    }
 }

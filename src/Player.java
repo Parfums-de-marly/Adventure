@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private ArrayList<Item> inventory = new ArrayList<>();
@@ -59,22 +60,26 @@ public class Player {
             return EatResult.NOT_FOUND;
         }
         for (Item item : inventory) {
-            if (item instanceof Food) {
-                if (item.getShortName().equals(shortname)) {
-                    playerHealth += ((Food) item).getHealtPoints();
+            if (item.getShortName().equals(shortname)) {
+                if (item instanceof Food) {
+
+                    playerHealth += ((Food) item).getHealOrDamageAmount();
+                    inventory.remove(item);
                     return EatResult.EATEN;
                 }
-
-            } else {
                 return EatResult.NOT_FOOD;
             }
-        }
 
-        for (Item item : currentRoom.getItems()) {
-            if (item instanceof Food) {
-                playerHealth += ((Food) item).getHealtPoints();
-                return EatResult.EATEN;
-            } else {
+
+        }
+        List<Item> currentRoomItems = currentRoom.getItems();
+        for (Item item : currentRoomItems){
+            if(item.getShortName().equals(shortname)){
+                if (item instanceof Food) {
+                    playerHealth += ((Food) item).getHealOrDamageAmount();
+                    currentRoomItems.remove(item);
+                    return EatResult.EATEN;
+            }
                 return EatResult.NOT_FOOD;
             }
         }
@@ -123,4 +128,7 @@ public class Player {
         return maxWeight;
     }
 
+    public int getPlayerHealth(){
+        return playerHealth;
+    }
 }

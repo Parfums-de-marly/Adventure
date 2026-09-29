@@ -71,10 +71,13 @@ public class Adventure {
 
                 case "7" -> {
                     ui.showInventory(player);
+                    int healthStart = player.getPlayerHealth();
                     ui.showDoors(player.getCurrentRoom());
-                    EatResult eatResult = player.eatItem(ui.itemToEat());
+                    String itemName = ui.itemToEat();
+                    EatResult eatResult = player.eatItem(itemName);
+                    int healthChange = healthStart - player.getPlayerHealth();
 
-
+                    ui.itemEaten(eatResult, itemName, healthChange);
                 }
 
             }
