@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
-    final int playerHealth;
+    private int maxWeight = 6;
+    private int currentWeight = 0;
+    private int playerHealth = 100;
 
     public Player(Room startingRoom, int playerHealth) {
         currentRoom = startingRoom;
@@ -52,15 +55,48 @@ public class Player {
         return null;
     }
 
+    public EatResult eatItem(String shortname) {
+        if (inventory.isEmpty() && currentRoom.getItems().isEmpty()) {
+            return EatResult.NOT_FOUND;
+        }
+        for (Item item : inventory) {
+            if (item.getShortName().equals(shortname)) {
+                if (item instanceof Food) {
+
+                    playerHealth += ((Food) item).getHealOrDamageAmount();
+                    inventory.remove(item);
+                    return EatResult.EATEN;
+                }
+                return EatResult.NOT_FOOD;
+            }
+
+
+        }
+        List<Item> currentRoomItems = currentRoom.getItems();
+        for (Item item : currentRoomItems){
+            if(item.getShortName().equals(shortname)){
+                if (item instanceof Food) {
+                    playerHealth += ((Food) item).getHealOrDamageAmount();
+                    currentRoomItems.remove(item);
+                    return EatResult.EATEN;
+            }
+                return EatResult.NOT_FOOD;
+            }
+        }
+        return EatResult.NOT_FOUND;
+
+    }
+
     public Item takeItem(String shortName) {
         Item item = currentRoom.findItem(shortName);
-
         if (item != null) {
+            boolean isOverweight = (item.getWeight() + currentWeight) > maxWeight;
+            if (isOverweight) return null;
             currentRoom.removeItem(item);
             inventory.add(item);
+            currentWeight += item.getWeight();
             return item;
         }
-
         return null;
     }
 
@@ -82,5 +118,17 @@ public class Player {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public int getCurrentWeight(){
+        return currentWeight;
+    }
+
+    public int getMaxWeight(){
+        return maxWeight;
+    }
+
+    public int getPlayerHealth(){
+        return playerHealth;
     }
 }

@@ -47,7 +47,7 @@ public class Adventure {
 
                       //  IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
                     } else {
-                        IO.println(itemName + " is either not here, or is too heavy");
+                        IO.println(itemName + " is either not here, or is too heavy ");
                     }
                 }
 
@@ -69,6 +69,16 @@ public class Adventure {
 
                 case "5" -> ui.showInventory(player);
 
+                case "7" -> {
+                    ui.showInventory(player);
+                    int healthStart = player.getPlayerHealth();
+                    ui.showDoors(player.getCurrentRoom());
+                    String itemName = ui.itemToEat();
+                    EatResult eatResult = player.eatItem(itemName);
+                    int healthChange = healthStart - player.getPlayerHealth();
+
+                    ui.itemEaten(eatResult, itemName, healthChange);
+                }
 
             }
         }
