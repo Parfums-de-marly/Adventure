@@ -45,7 +45,7 @@ public class Adventure {
                     if (item != null) {
                         ui.itemPickup(item.getLongName());
 
-                      //  IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
+                        IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
                     } else {
                         IO.println(itemName + " is either not here, or is too heavy ");
                     }
@@ -60,7 +60,7 @@ public class Adventure {
 
                     if (item != null) {
                         ui.itemDrop(item.getLongName());
-                     //   IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
+                        IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
 
                     } else {
                         IO.println("You don't have anything like " + itemName + " in your inventory");
