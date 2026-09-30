@@ -131,4 +131,16 @@ public class Player {
     public int getPlayerHealth(){
         return playerHealth;
     }
+
+   private int health = 100;
+
+    public int getHealth() {
+        return health;
+
+    }
+
+    public void addHealth(int points) {
+        health += points;
+
+    }
 }

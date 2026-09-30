@@ -6,13 +6,13 @@ public class Adventure {
 
     private boolean adventureIsDone = false;
 
-    public Adventure(){
+    public Adventure() {
         this.map = new Map();
         player = new Player(map.getFirstRoom(), 100);
         ui = new UserInterface();
     }
 
-    public void run(){
+    public void run() {
         ui.showStartScreen();
         /*
         try {
@@ -28,7 +28,7 @@ public class Adventure {
 
             String commandInput = ui.getCommand();
 
-            switch (commandInput){
+            switch (commandInput) {
                 case "1" -> {
                     ui.showDoors(player.getCurrentRoom());
                 }
@@ -80,6 +80,7 @@ public class Adventure {
                     ui.itemEaten(eatResult, itemName, healthChange);
                 }
 
+                case "6" -> ui.showHealth(player);
             }
         }
     }
