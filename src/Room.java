@@ -11,6 +11,26 @@ public class Room {
     private Room south;
     private Room west;
 
+    private boolean northLocked = false;
+    private boolean eastLocked = false;
+    private boolean southLocked = false;
+    private boolean westLocked = false;
+
+    public void lockNorth() {northLocked = true;}
+    public void lockEast() {eastLocked = true;}
+    public void lockSouth() {southLocked = true;}
+    public void lockWest() {westLocked = true;}
+
+    public void unlockNorth() {northLocked = false;}
+    public void unlockEast() {eastLocked = false;}
+    public void unlockSouth() {southLocked = false;}
+    public void unlockWest() {westLocked = false;}
+
+    public boolean isNorthLocked() {return northLocked;}
+    public boolean isEastLocked() {return eastLocked;}
+    public boolean isSouthLocked() {return southLocked;}
+    public boolean isWestLocked() {return westLocked;}
+
     public Room(String name, String description, String doorDescription, ArrayList<Item> items) {
         this.name = name;
         this.description = description;
