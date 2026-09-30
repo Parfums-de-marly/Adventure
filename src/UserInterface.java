@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 public class UserInterface {
 
     public void showStartScreen(){
@@ -26,14 +25,18 @@ public class UserInterface {
         return IO.readln("Input Direction(north, south, east, west): ");
     }
 
-    public void showRoom(String text) {
-        IO.println(text);
+    public void showRoom(Room room, boolean isTrue){
+        if(isTrue){
+            IO.println(room.getName());
+        } else {
+            IO.println(room.getName() + " " + room.getDescription());
+        }
     }
 
-    public void showInventory(ArrayList<Item> inventory) {
+    public void showInventory(Player player){
         IO.println("Inventory");
 
-        for (Item item : inventory) {
+        for (Item item : player.getInventory()){
             IO.println("- " + item.getLongName());
         }
     }
