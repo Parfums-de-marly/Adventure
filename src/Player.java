@@ -6,11 +6,10 @@ public class Player {
     private Room currentRoom;
     private int maxWeight = 6;
     private int currentWeight = 0;
-    private int playerHealth = 100;
 
-    public Player(Room startingRoom, int playerHealth) {
+    public Player(Room startingRoom, int health) {
         currentRoom = startingRoom;
-        this.playerHealth = playerHealth;
+        this.health = health;
     }
 
     public boolean goNorth() {
@@ -63,7 +62,7 @@ public class Player {
             if (item.getShortName().equals(shortname)) {
                 if (item instanceof Food) {
 
-                    playerHealth += ((Food) item).getHealOrDamageAmount();
+                    health += ((Food) item).getHealOrDamageAmount();
                     inventory.remove(item);
                     return EatResult.EATEN;
                 }
@@ -73,13 +72,13 @@ public class Player {
 
         }
         List<Item> currentRoomItems = currentRoom.getItems();
-        for (Item item : currentRoomItems){
-            if(item.getShortName().equals(shortname)){
+        for (Item item : currentRoomItems) {
+            if (item.getShortName().equals(shortname)) {
                 if (item instanceof Food) {
-                    playerHealth += ((Food) item).getHealOrDamageAmount();
+                    health += ((Food) item).getHealOrDamageAmount();
                     currentRoomItems.remove(item);
                     return EatResult.EATEN;
-            }
+                }
                 return EatResult.NOT_FOOD;
             }
         }
@@ -106,6 +105,8 @@ public class Player {
         if (item != null) {
             inventory.remove(item);
             currentRoom.addItem(item);
+            currentWeight -= item.getWeight();
+            return item;
         }
         return null;
     }
@@ -118,27 +119,22 @@ public class Player {
         return currentRoom;
     }
 
-    public int getCurrentWeight(){
+    public int getCurrentWeight() {
         return currentWeight;
     }
 
-    public int getMaxWeight(){
+    public int getMaxWeight() {
         return maxWeight;
     }
 
-    public int getPlayerHealth(){
-        return playerHealth;
-    }
 
-   private int health = 100;
+    private int health = 100;
 
     public int getHealth() {
         return health;
-
     }
 
     public void addHealth(int points) {
         health += points;
-
     }
 }
