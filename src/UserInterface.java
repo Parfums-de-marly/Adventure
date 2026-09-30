@@ -25,13 +25,16 @@ public class UserInterface {
         return IO.readln("Input Direction(north, south, east, west): ");
     }
 
-    public void showRoom(String showRoom){
-        IO.println(showRoom);
+    public void showRoom(String roomDescription){
+        IO.println(roomDescription);
     }
 
-    public void showInventory(StringBuilder itemInInventory){
+    public void showInventory(Player player){
         IO.println("Inventory");
-        IO.println(itemInInventory);
+
+        for (Item item : player.getInventory()){
+            IO.println("- " + item.getLongName());
+        }
     }
 
     public void showHealth(String healthStatus) {
