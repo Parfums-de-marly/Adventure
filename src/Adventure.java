@@ -77,9 +77,10 @@ public class Adventure {
 
                 case "7" -> {
                     ui.showInventory(player);
-                    EatResult eatResult = player.eatItem(ui.itemToEat());
+                    String chosenFood = ui.itemToEat();
+                    EatResult eatResult = player.eatItem(chosenFood);
                     if (eatResult.equals(EatResult.EATEN)) {
-                        ui.itemEaten("You ate " + ui.itemToEat() + ". Health difference: " + (player.getHealth() - 100));
+                        ui.itemEaten("You ate " + chosenFood + ". Health difference: " + (player.getHealth() - 100));
                     } else if (eatResult.equals(EatResult.NOT_FOUND)) {
                         ui.itemEaten("Item not found");
                     } else if (eatResult.equals(EatResult.NOT_FOOD)) {
