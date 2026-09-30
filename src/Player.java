@@ -59,7 +59,7 @@ public class Player {
             return EatResult.NOT_FOUND;
         }
         for (Item item : inventory) {
-            if (item.getShortName().equals(shortname)) {
+            if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Food) {
 
                     health += ((Food) item).getHealOrDamageAmount();
@@ -73,7 +73,7 @@ public class Player {
         }
         List<Item> currentRoomItems = currentRoom.getItems();
         for (Item item : currentRoomItems) {
-            if (item.getShortName().equals(shortname)) {
+            if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Food) {
                     health += ((Food) item).getHealOrDamageAmount();
                     currentRoomItems.remove(item);
@@ -83,7 +83,6 @@ public class Player {
             }
         }
         return EatResult.NOT_FOUND;
-
     }
 
     public Item takeItem(String shortName) {
