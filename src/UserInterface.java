@@ -106,5 +106,19 @@ public class UserInterface {
         if (eatResult.equals(EatResult.EATEN)){
             IO.println("You ate " + itemName + " .Health difference: " + healthChange);
         }
+
     }
+
+    public void showDoorLocked() {
+        IO.println("the door is locked");
+    }
+
+    public void showUnlocked() {
+        IO.println("You unlock the door.");
+    }
+
+    public void showNothingToUnlock() {
+        IO.println("There is nothing to unlock.");
+    }
+
 }

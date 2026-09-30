@@ -1,3 +1,4 @@
+import java.lang.classfile.attribute.ModuleOpenInfo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,36 +14,49 @@ public class Player {
         this.playerHealth = playerHealth;
     }
 
-    public boolean goNorth() {
-        if (currentRoom.getNorth() != null) {
-            currentRoom = currentRoom.getNorth();
-            return true;
-        }
-        return false;
+    public MoveResult goNorth() {
+        Room next = currentRoom.getNorth();
+        if (next == null) return MoveResult.NO_DOOR;
+        if (currentRoom.isNorthLocked()) return MoveResult.LOCKED;
+        currentRoom = next;
+        return MoveResult.MOVED;
+
+
     }
 
-    public boolean goEast() {
-        if (currentRoom.getEast() != null) {
-            currentRoom = currentRoom.getEast();
-            return true;
-        }
-        return false;
+    public MoveResult goEast() {
+        Room next = currentRoom.getEast();
+        if(next == null) return MoveResult.NO_DOOR;
+        if(currentRoom.isEastLocked()) return MoveResult.LOCKED;
+        currentRoom = next;
+        return MoveResult.MOVED;
     }
 
-    public boolean goSouth() {
-        if (currentRoom.getSouth() != null) {
-            currentRoom = currentRoom.getSouth();
-            return true;
-        }
-        return false;
+    public MoveResult goSouth() {
+        Room next = currentRoom.getSouth();
+        if(next == null) return MoveResult.NO_DOOR;
+        if(currentRoom.isSouthLocked()) return MoveResult.LOCKED;
+        currentRoom = next;
+        return MoveResult.MOVED;
     }
 
-    public boolean goWest() {
-        if (currentRoom.getWest() != null) {
-            currentRoom = currentRoom.getWest();
-            return true;
+    public MoveResult goWest() {
+        Room next = currentRoom.getWest();
+        if(next == null) return MoveResult.NO_DOOR;
+        if(currentRoom.isWestLocked()) return MoveResult.LOCKED;
+        currentRoom = next;
+        return MoveResult.MOVED;
+    }
+
+    public boolean unlock(String direction) {
+        switch (direction) {
+            case "north" -> currentRoom.unlockNorth();
+            case "east" -> currentRoom.unlockEast();
+            case "south" -> currentRoom.unlockSouth();
+            case "west" -> currentRoom.unlockWest();
+
         }
-        return false;
+        return true;
     }
 
     public Item findItem(String shortName) {
@@ -51,7 +65,6 @@ public class Player {
                 return item;
             }
         }
-
         return null;
     }
 
