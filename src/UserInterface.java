@@ -1,9 +1,4 @@
 public class UserInterface {
-    Adventure adventure;
-
-    public UserInterface(){
-        adventure = new Adventure();
-    }
 
     public void showStartScreen(){
         IO.println("You wake up in a mysterious room. Small and with stone walls...\nYou see a flickering warm torch and you can't but wonder what's beyond these walls...");
@@ -46,12 +41,12 @@ public class UserInterface {
         }
     }
 
-    public void showHealth(){
-        IO.println(adventure.healthStatus());
+    public void showHealth(String healthStatus) {
+        IO.println(healthStatus);
     }
 
-    public void showDoors(){
-        IO.println(adventure.doorDescrip());
+    public void showDoors(String doordescrip){
+        IO.println(doordescrip);
     }
 
     public void showMovement(String direction){
