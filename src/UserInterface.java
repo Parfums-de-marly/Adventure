@@ -23,14 +23,13 @@ public class UserInterface {
         return IO.readln("Input Direction(north, south, east, west): ");
     }
 
-    public void showRoom(Room room){
+    public void showRoom(Room room, boolean isTrue){
         StringBuilder itemsShown = new StringBuilder();
-        IO.println(room.getName() + " " + room.getDescription());
-
-        for (Item item : room.getItems()){
-            itemsShown.append(item.getLongName());
+        if(isTrue){
+            IO.println(room.getName());
+        } else {
+            IO.println(room.getName() + " " + room.getDescription());
         }
-        IO.println("You see a.. " + itemsShown + " ");
     }
 
     public void showInventory(Player player){

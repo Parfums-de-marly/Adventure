@@ -1,13 +1,16 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Map {
     private final ArrayList<Room> rooms;
     Room startRoom;
+    boolean[] visitedRoom = new boolean[23];
 
     public Map(){
         this.rooms = buildMap();
         this.startRoom = rooms.get(0);
+        visitedRoom[0] = true;
     }
 
     public ArrayList<Room> buildMap() {
@@ -82,6 +85,12 @@ public class Map {
         return new ArrayList<>(Arrays.asList(itemArray, food));
     }
 
+    public boolean visitedRoom(int roomNumber) {
+        return visitedRoom[roomNumber];
+    }
+    public void setVisited(int roomNumber) {
+        visitedRoom[roomNumber] = true;
+    }
 
     public Room getFirstRoom() {
        return startRoom;
