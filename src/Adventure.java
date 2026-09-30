@@ -31,12 +31,14 @@ public class Adventure {
             switch (commandInput) {
                 case "1" -> {
                     ui.showDoors(player.getCurrentRoom());
+                    showRoom();
                 }
 
                 case "2" -> {
                     movePlayer();
                     ui.showDoors(player.getCurrentRoom());
                 }
+
                 case "3" -> {
                     String itemName = ui.askWhichItem();
 
@@ -56,7 +58,7 @@ public class Adventure {
                 }
 
                 case "4" -> {
-                    ui.showInventory(player);
+                    ui.showInventory(player.getInventory());
 
                     String itemName = ui.askWhichItem();
 
@@ -71,12 +73,12 @@ public class Adventure {
                     }
                 }
 
-                case "5" -> ui.showInventory(player);
+                case "5" -> showInventory();
 
                 case "6" -> ui.showHealth(player);
 
                 case "7" -> {
-                    ui.showInventory(player);
+                    ui.showInventory(player.getInventory());
 
                     String itemName = ui.itemToEat();
                     EatResult eatResult = player.eatItem(itemName);
@@ -88,46 +90,60 @@ public class Adventure {
         }
     }
 
+    private void showRoom(){
+        Room currentRoom = player.getCurrentRoom();
+
+        int roomNumber = Integer.parseInt(currentRoom.getName().substring(5)) - 1;
+        boolean alreadyVisited = map.visitedRoom(roomNumber);
+
+        if (alreadyVisited) {
+            ui.showRoom(currentRoom.getName());
+        } else {
+            ui.showRoom(currentRoom.getName() + " " + currentRoom.getDescription());
+            map.setVisited(roomNumber);
+        }
+
+    }
+
+    private void showInventory(){
+        ui.showInventory(player.getInventory());
+    }
+
+
     private void movePlayer() {
         String directionInput = ui.getDirection().trim().toLowerCase();
 
         switch (directionInput) {
             case "north" -> {
-                if (player.goNorth()){
+                if (player.goNorth()) {
                     ui.showMovement("North");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
-                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    showRoom();
                 } else {
                     ui.showCannotGo("North");
                 }
             }
+
             case "east" -> {
-                if (player.goEast()){
+                if (player.goEast()) {
                     ui.showMovement("East");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
-                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    showRoom();
                 } else {
                     ui.showCannotGo("East");
                 }
             }
+
             case "south" -> {
-                if (player.goSouth()){
+                if (player.goNorth()) {
                     ui.showMovement("South");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
-                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    showRoom();
                 } else {
                     ui.showCannotGo("South");
                 }
             }
             case "west" -> {
-                if (player.goWest()){
+                if (player.goWest()) {
                     ui.showMovement("West");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
-                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    showRoom();
                 } else {
                     ui.showCannotGo("West");
                 }
