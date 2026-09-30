@@ -26,7 +26,6 @@ public class UserInterface {
     }
 
     public void showRoom(Room room, boolean isTrue){
-        StringBuilder itemsShown = new StringBuilder();
         if(isTrue){
             IO.println(room.getName());
         } else {
@@ -60,13 +59,6 @@ public class UserInterface {
             return "You are dead. ";
         }
 
-    }
-
-
-    public void showItem(Room room){
-        for (Item item : room.getItems()){
-            IO.println("You see: " + item.getLongName() + " (" + item.getShortName() + ")");
-        }
     }
     public void showDoors(Room room){
         IO.println(room.getDoorDescription());

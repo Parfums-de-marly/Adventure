@@ -108,7 +108,6 @@ public class Player {
             currentWeight -= item.getWeight();
             return item;
         }
-
         return null;
     }
 
