@@ -96,7 +96,13 @@ public class UserInterface {
 
     public void itemEaten(EatResult eatResult, String itemName, int healthChange) {
         if (eatResult.equals(EatResult.EATEN)){
-            IO.println("You ate " + itemName + " .Health difference: " + healthChange);
+            IO.println("You ate " + itemName + ". Health difference: " + healthChange);
+        } else if (eatResult.equals(EatResult.NOT_FOUND)){
+            IO.println("Item not found");
+        } else if (eatResult.equals(EatResult.NOT_FOOD)){
+            IO.println("Item chosen is not food");
+        } else{
+            IO.println("Error");
         }
     }
 }
