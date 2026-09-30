@@ -13,6 +13,7 @@ public class UserInterface {
                 4. Drop Item?
                 5. View Inventory?
                 6. Show Health?
+                7. Eat?
                 """);
     }
 
@@ -24,11 +25,12 @@ public class UserInterface {
         return IO.readln("Input Direction(north, south, east, west): ");
     }
 
-    public void showRoom(Room room){
-        IO.println(room.getName() + " " + room.getDescription());
-
-        for (Item item : room.getItems()){
-            IO.println("You see: " + item.getLongName() + " (" + item.getShortName() + ")");
+    public void showRoom(Room room, boolean isTrue){
+        StringBuilder itemsShown = new StringBuilder();
+        if(isTrue){
+            IO.println(room.getName());
+        } else {
+            IO.println(room.getName() + " " + room.getDescription());
         }
     }
 
@@ -68,6 +70,12 @@ public class UserInterface {
     }
     public void showDoors(Room room){
         IO.println(room.getDoorDescription());
+        StringBuilder itemsShown = new StringBuilder();
+
+        for (Item item : room.getItems()){
+            itemsShown.append("\n" + item.getLongName());
+        }
+        IO.println("You see:" + itemsShown);
     }
 
     public void showMovement(String direction){
@@ -83,9 +91,20 @@ public class UserInterface {
     }
 
     public void itemPickup(String itemName){
-        IO.println("You picked up " + itemName);
+        IO.println("You picked up a " + itemName);
     }
 
-    public void itemDrop(String itemName){IO.println("You Dropped " + itemName);
+    public void itemDrop(String itemName){
+        IO.println("You Dropped " + itemName);
+    }
+
+    public String itemToEat(){
+        return IO.readln("What would you like to eat?: ");
+    }
+
+    public void itemEaten(EatResult eatResult, String itemName, int healthChange) {
+        if (eatResult.equals(EatResult.EATEN)){
+            IO.println("You ate " + itemName + " .Health difference: " + healthChange);
+        }
     }
 }

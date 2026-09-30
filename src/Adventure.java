@@ -8,19 +8,22 @@ public class Adventure {
 
     public Adventure() {
         this.map = new Map();
-        player = new Player(map.getFirstRoom());
+        player = new Player(map.getFirstRoom(), 100);
         ui = new UserInterface();
     }
 
     public void run() {
         ui.showStartScreen();
+        /*
         try {
             // Pause the program for 3 seconds
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        while (!adventureIsDone) {
+
+         */
+        while(!adventureIsDone){
             ui.showMenu();
 
             String commandInput = ui.getCommand();
@@ -28,7 +31,6 @@ public class Adventure {
             switch (commandInput) {
                 case "1" -> {
                     ui.showDoors(player.getCurrentRoom());
-                    ui.showItem(player.getCurrentRoom());
                 }
 
                 case "2" -> {
@@ -43,9 +45,9 @@ public class Adventure {
                     if (item != null) {
                         ui.itemPickup(item.getLongName());
 
-                        IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
+                      //  IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
                     } else {
-                        IO.println(itemName + " is either not here, or is too heavy");
+                        IO.println(itemName + " is either not here, or is too heavy ");
                     }
                 }
 
@@ -58,7 +60,7 @@ public class Adventure {
 
                     if (item != null) {
                         ui.itemDrop(item.getLongName());
-                        IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
+                     //   IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
 
                     } else {
                         IO.println("You don't have anything like " + itemName + " in your inventory");
@@ -67,6 +69,16 @@ public class Adventure {
 
                 case "5" -> ui.showInventory(player);
 
+                case "7" -> {
+                    ui.showInventory(player);
+                    int healthStart = player.getPlayerHealth();
+                    ui.showDoors(player.getCurrentRoom());
+                    String itemName = ui.itemToEat();
+                    EatResult eatResult = player.eatItem(itemName);
+                    int healthChange = healthStart - player.getPlayerHealth();
+
+                    ui.itemEaten(eatResult, itemName, healthChange);
+                }
 
                 case "6" -> ui.showHealth(player);
             }
@@ -80,7 +92,9 @@ public class Adventure {
             case "north" -> {
                 if (player.goNorth()){
                     ui.showMovement("North");
-                    ui.showRoom(player.getCurrentRoom());
+                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("North");
                 }
@@ -88,7 +102,9 @@ public class Adventure {
             case "east" -> {
                 if (player.goEast()){
                     ui.showMovement("East");
-                    ui.showRoom(player.getCurrentRoom());
+                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("East");
                 }
@@ -96,7 +112,9 @@ public class Adventure {
             case "south" -> {
                 if (player.goSouth()){
                     ui.showMovement("South");
-                    ui.showRoom(player.getCurrentRoom());
+                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("South");
                 }
@@ -104,7 +122,9 @@ public class Adventure {
             case "west" -> {
                 if (player.goWest()){
                     ui.showMovement("West");
-                    ui.showRoom(player.getCurrentRoom());
+                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("West");
                 }
