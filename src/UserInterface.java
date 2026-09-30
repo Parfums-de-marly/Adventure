@@ -1,4 +1,9 @@
 public class UserInterface {
+    Adventure adventure;
+
+    public UserInterface(){
+        adventure = new Adventure();
+    }
 
     public void showStartScreen(){
         IO.println("You wake up in a mysterious room. Small and with stone walls...\nYou see a flickering warm torch and you can't but wonder what's beyond these walls...");
@@ -41,33 +46,12 @@ public class UserInterface {
         }
     }
 
-    public void showHealth(Player player){
-        int hp = player.getHealth();
-        IO.println("Health: " + hp + " - " + healthStatus(hp));
+    public void showHealth(){
+        IO.println(adventure.healthStatus());
     }
 
-    private String healthStatus(int hp) {
-        if (hp >=100) {
-            return "You are in perfect health condition ";
-        } else if (hp >= 50) {
-            return "You are in good health condition, but avoid fighting right now ";
-        } else if (hp >=25) {
-            return "You are in poor health condition, you should heal";
-        } else if (hp >=0) {
-            return "You are in critical health condition, you should heal immediately";
-        } else {
-            return "You are dead. ";
-        }
-
-    }
-    public void showDoors(Room room){
-        IO.println(room.getDoorDescription());
-        StringBuilder itemsShown = new StringBuilder();
-
-        for (Item item : room.getItems()){
-            itemsShown.append("\n" + item.getLongName());
-        }
-        IO.println("You see:" + itemsShown);
+    public void showDoors(){
+        IO.println(adventure.doorDescrip());
     }
 
     public void showMovement(String direction){
@@ -94,15 +78,7 @@ public class UserInterface {
         return IO.readln("What would you like to eat?: ");
     }
 
-    public void itemEaten(EatResult eatResult, String itemName, int healthChange) {
-        if (eatResult.equals(EatResult.EATEN)){
-            IO.println("You ate " + itemName + ". Health difference: " + healthChange);
-        } else if (eatResult.equals(EatResult.NOT_FOUND)){
-            IO.println("Item not found");
-        } else if (eatResult.equals(EatResult.NOT_FOOD)){
-            IO.println("Item chosen is not food");
-        } else{
-            IO.println("Error");
-        }
+    public void itemEaten(String eatOutputResult) {
+        IO.println(eatOutputResult);
     }
 }
