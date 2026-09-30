@@ -36,7 +36,7 @@ public class Adventure {
 
                 case "2" -> {
                     movePlayer();
-                    ui.showDoors(player.getCurrentRoom());
+                    ui.showDoors();
                 }
 
                 case "3" -> {
@@ -75,7 +75,7 @@ public class Adventure {
 
                 case "5" -> showInventory();
 
-                case "6" -> ui.showHealth(player);
+                case "6" -> ui.showHealth();
 
                 case "7" -> {
                     ui.showInventory(player.getInventory());
@@ -110,6 +110,51 @@ public class Adventure {
     }
 
 
+                    ui.showInventory(player);
+                    String chosenFood = ui.itemToEat();
+                    EatResult eatResult = player.eatItem(chosenFood);
+                    if (eatResult.equals(EatResult.EATEN)) {
+                        ui.itemEaten("You ate " + chosenFood + ". Health difference: " + (player.getHealth() - 100));
+                    } else if (eatResult.equals(EatResult.NOT_FOUND)) {
+                        ui.itemEaten("Item not found");
+                    } else if (eatResult.equals(EatResult.NOT_FOOD)) {
+                        ui.itemEaten("Item chosen is not food");
+                    } else {
+                        ui.itemEaten("Error");
+                    }
+                }
+            }
+        }
+    }
+
+    public String doorDescrip(){
+        Room room = player.getCurrentRoom();
+        IO.println(room.getDoorDescription());
+        StringBuilder itemsShown = new StringBuilder();
+
+        for (Item item : room.getItems()){
+            itemsShown.append("\n" + item.getLongName());
+        }
+        return "You see:" + itemsShown;
+    }
+    
+    public String healthStatus(){
+        int hp = player.getHealth();
+        String status;
+        if (hp >=100) {
+            status = "You are in perfect health condition ";
+        } else if (hp >= 50) {
+            status = "You are in good health condition, but avoid fighting right now ";
+        } else if (hp >=25) {
+            status = "You are in poor health condition, you should heal";
+        } else if (hp >=0) {
+            status = "You are in critical health condition, you should heal immediately";
+        } else {
+            status = "You are dead. ";
+        }
+       return "Health: " + hp + " - " + status;
+    }
+    
     private void movePlayer() {
         String directionInput = ui.getDirection().trim().toLowerCase();
 
