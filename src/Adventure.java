@@ -30,13 +30,12 @@ public class Adventure {
 
             switch (commandInput) {
                 case "1" -> {
-                    ui.showDoors(player.getCurrentRoom());
-                    showRoom();
+                    ui.showDoors(doorDescrip());
                 }
 
                 case "2" -> {
                     movePlayer();
-                    ui.showDoors();
+                    ui.showDoors(doorDescrip());
                 }
 
                 case "3" -> {
@@ -75,7 +74,7 @@ public class Adventure {
 
                 case "5" -> showInventory();
 
-                case "6" -> ui.showHealth();
+                case "6" -> ui.showHealth(healthStatus());
 
                 case "7" -> {
                     ui.showInventory(player.getInventory());
