@@ -143,6 +143,22 @@ public class Adventure {
         return "Health: " + hp + " - " + status;
     }
 
+    private void Weapon(){
+        String weaponInput = ui.weaponInput().trim().toLowerCase();
+
+        switch (weaponInput){
+            case "attack" -> {
+
+            }
+            case "equip" -> {
+
+            }
+            case "reload" -> {
+
+            }
+        }
+    }
+
     private void equipWeapon(){
         String itemName = ui.weaponToEquip();
         EquipResult equipResult = player.equip(itemName);
