@@ -30,12 +30,12 @@ public class Adventure {
 
             switch (commandInput) {
                 case "1" -> {
-                    ui.showDoors(player.getCurrentRoom());
+                    ui.showDoors(doorDescrip());
                 }
 
                 case "2" -> {
                     movePlayer();
-                    ui.showDoors(player.getCurrentRoom());
+                    ui.showDoors(doorDescrip());
                 }
                 case "3" -> {
                     String itemName = ui.askWhichItem();
@@ -46,13 +46,17 @@ public class Adventure {
                         ui.itemPickup(item.getLongName());
 
                         IO.println("Inventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight());
+
+                    } else if (player.getCurrentRoom().findItem(itemName) != null) {
+                        IO.println("The item is too heavy.");
+
                     } else {
-                        IO.println(itemName + " is either not here, or is too heavy ");
+                        IO.println("The item is not here.");
                     }
                 }
 
                 case "4" -> {
-                    ui.showInventory(player);
+                    ui.showInventory(showInventory());
 
                     String itemName = ui.askWhichItem();
 
@@ -67,22 +71,74 @@ public class Adventure {
                     }
                 }
 
-                case "5" -> ui.showInventory(player);
+                case "5" -> ui.showInventory(showInventory());
 
-                case "6" -> ui.showHealth(player);
+                case "6" -> ui.showHealth(healthStatus());
 
                 case "7" -> {
-                    ui.showInventory(player);
-                    ui.showDoors(player.getCurrentRoom());
-                    String itemName = ui.itemToEat();
-                    EatResult eatResult = player.eatItem(itemName);
-                    int healthChange =  player.getHealth() - 100;
-
-                    ui.itemEaten(eatResult, itemName, healthChange);
+                    ui.showInventory(showInventory());
+                    String chosenFood = ui.itemToEat();
+                    EatResult eatResult = player.eatItem(chosenFood);
+                    if (eatResult.equals(EatResult.EATEN)) {
+                        ui.itemEaten("You ate " + chosenFood + ". Health difference: " + (player.getHealth() - 100));
+                    } else if (eatResult.equals(EatResult.NOT_FOUND)) {
+                        ui.itemEaten("Item not found");
+                    } else if (eatResult.equals(EatResult.NOT_FOOD)) {
+                        ui.itemEaten("Item chosen is not food");
+                    } else {
+                        ui.itemEaten("Error");
+                    }
                 }
             }
         }
     }
+
+    public String doorDescrip(){
+        Room room = player.getCurrentRoom();
+        IO.println(room.getDoorDescription());
+        StringBuilder itemsShown = new StringBuilder();
+
+        for (Item item : room.getItems()){
+            itemsShown.append("\n" + item.getLongName());
+        }
+        return "You see:" + itemsShown;
+    }
+
+    public String healthStatus(){
+        int hp = player.getHealth();
+        String status;
+        if (hp >=100) {
+            status = "You are in perfect health condition ";
+        } else if (hp >= 50) {
+            status = "You are in good health condition, but avoid fighting right now ";
+        } else if (hp >=25) {
+            status = "You are in poor health condition, you should heal";
+        } else if (hp >=0) {
+            status = "You are in critical health condition, you should heal immediately";
+        } else {
+            status = "You are dead. ";
+        }
+        return "Health: " + hp + " - " + status;
+    }
+    
+    public String showRoom(){
+        Room room = player.getCurrentRoom();
+        boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
+        if(isTrue){
+            return room.getName();
+        } else {
+            return room.getName() + " " + room.getDescription();
+        }
+    }
+    
+    public StringBuilder showInventory(){
+        StringBuilder itemInInventory = new StringBuilder();
+        for (Item item : player.getInventory()){
+            itemInInventory.append("- " + item.getLongName());
+        }
+        return itemInInventory;
+    }
+    
 
     private void movePlayer() {
         String directionInput = ui.getDirection().trim().toLowerCase();
@@ -91,8 +147,7 @@ public class Adventure {
             case "north" -> {
                 if (player.goNorth()){
                     ui.showMovement("North");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    ui.showRoom(showRoom());
                     map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("North");
@@ -101,8 +156,7 @@ public class Adventure {
             case "east" -> {
                 if (player.goEast()){
                     ui.showMovement("East");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    ui.showRoom(showRoom());
                     map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("East");
@@ -111,8 +165,7 @@ public class Adventure {
             case "south" -> {
                 if (player.goSouth()){
                     ui.showMovement("South");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    ui.showRoom(showRoom());
                     map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("South");
@@ -121,8 +174,7 @@ public class Adventure {
             case "west" -> {
                 if (player.goWest()){
                     ui.showMovement("West");
-                    boolean isTrue = map.visitedRoom(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
-                    ui.showRoom(player.getCurrentRoom(), isTrue);
+                    ui.showRoom(showRoom());
                     map.setVisited(Integer.parseInt(player.getCurrentRoom().getName().substring(5))-1);
                 } else {
                     ui.showCannotGo("West");

@@ -25,49 +25,21 @@ public class UserInterface {
         return IO.readln("Input Direction(north, south, east, west): ");
     }
 
-    public void showRoom(Room room, boolean isTrue){
-        if(isTrue){
-            IO.println(room.getName());
-        } else {
-            IO.println(room.getName() + " " + room.getDescription());
-        }
+    public void showRoom(String showRoom){
+        IO.println(showRoom);
     }
 
-    public void showInventory(Player player){
+    public void showInventory(StringBuilder itemInInventory){
         IO.println("Inventory");
-
-        for (Item item : player.getInventory()){
-            IO.println("- " + item.getLongName());
-        }
+        IO.println(itemInInventory);
     }
 
-    public void showHealth(Player player){
-        int hp = player.getHealth();
-        IO.println("Health: " + hp + " - " + healthStatus(hp));
+    public void showHealth(String healthStatus) {
+        IO.println(healthStatus);
     }
 
-    private String healthStatus(int hp) {
-        if (hp >=100) {
-            return "You are in perfect health condition ";
-        } else if (hp >= 50) {
-            return "You are in good health condition, but avoid fighting right now ";
-        } else if (hp >=25) {
-            return "You are in poor health condition, you should heal";
-        } else if (hp >=0) {
-            return "You are in critical health condition, you should heal immediately";
-        } else {
-            return "You are dead. ";
-        }
-
-    }
-    public void showDoors(Room room){
-        IO.println(room.getDoorDescription());
-        StringBuilder itemsShown = new StringBuilder();
-
-        for (Item item : room.getItems()){
-            itemsShown.append("\n" + item.getLongName());
-        }
-        IO.println("You see:" + itemsShown);
+    public void showDoors(String doordescrip){
+        IO.println(doordescrip);
     }
 
     public void showMovement(String direction){
@@ -94,15 +66,7 @@ public class UserInterface {
         return IO.readln("What would you like to eat?: ");
     }
 
-    public void itemEaten(EatResult eatResult, String itemName, int healthChange) {
-        if (eatResult.equals(EatResult.EATEN)){
-            IO.println("You ate " + itemName + ". Health difference: " + healthChange);
-        } else if (eatResult.equals(EatResult.NOT_FOUND)){
-            IO.println("Item not found");
-        } else if (eatResult.equals(EatResult.NOT_FOOD)){
-            IO.println("Item chosen is not food");
-        } else{
-            IO.println("Error");
-        }
+    public void itemEaten(String eatOutputResult) {
+        IO.println(eatOutputResult);
     }
 }
