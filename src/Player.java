@@ -4,8 +4,9 @@ import java.util.List;
 public class Player {
     private ArrayList<Item> inventory = new ArrayList<>();
     private Room currentRoom;
-    private int maxWeight = 6;
+    private int maxWeight = 100;
     private int currentWeight = 0;
+    private Weapon weaponEquipped;
 
     public Player(Room startingRoom, int health) {
         currentRoom = startingRoom;
@@ -135,5 +136,18 @@ public class Player {
 
     public void addHealth(int points) {
         health += points;
+    }
+
+    public EquipResult equip(String itemName){
+        Item item = findItem(itemName);
+
+        if (item == null){
+            return EquipResult.NOT_FOUND;
+        }
+        if (item instanceof Weapon){
+            weaponEquipped = (Weapon) item;
+            return EquipResult.EQUIPPED;
+        }
+        return EquipResult.NOT_WEAPON;
     }
 }

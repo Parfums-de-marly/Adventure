@@ -6,9 +6,7 @@ public class Food extends Consumable {
         this.healOrDamageAmount = healOrDamageAmount;
     }
 
-
     public int getHealOrDamageAmount(){
         return healOrDamageAmount;
     }
-
 }

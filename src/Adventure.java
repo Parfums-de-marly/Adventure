@@ -35,6 +35,7 @@ public class Adventure {
                 case "5" -> showInventory();
                 case "6" -> showHealth();
                 case "7" -> eatItem();
+                case "8" -> equipWeapon();
             }
         }
     }
@@ -140,6 +141,20 @@ public class Adventure {
         }
 
         return "Health: " + hp + " - " + status;
+    }
+
+    private void equipWeapon(){
+        String itemName = ui.weaponToEquip();
+        EquipResult equipResult = player.equip(itemName);
+        if(equipResult == EquipResult.EQUIPPED){
+            ui.weaponEquipped(itemName);
+        }
+        if (equipResult == EquipResult.NOT_WEAPON){
+            ui.isNotWeapon();
+        }
+        if (equipResult == EquipResult.NOT_FOUND){
+            ui.weaponNotFound();
+        }
     }
 
     private void movePlayer() {
