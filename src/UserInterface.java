@@ -25,6 +25,10 @@ public class UserInterface {
         return IO.readln("Input Direction(north, south, east, west): ");
     }
 
+    public String weaponInput(){
+        return IO.readln("What do you wanna do? ");
+    }
+
     public void showRoom(String roomDescription){
         IO.println(roomDescription);
     }

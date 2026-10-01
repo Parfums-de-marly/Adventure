@@ -10,7 +10,7 @@ public abstract class Weapon extends Item {
         return damage;
     }
 
-    public abstract void canUse();
+    public abstract boolean canUse();
 
-    public abstract void use();
+    public abstract int use();
 }

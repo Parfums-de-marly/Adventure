@@ -1,4 +1,3 @@
-import java.util.concurrent.TimeUnit;
 public class Liquid extends Consumable {
 
     public Liquid(String shortName, String longName, int weight, String resultMessage) {

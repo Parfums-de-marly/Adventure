@@ -142,6 +142,20 @@ public class Adventure {
         return "Health: " + hp + " - " + status;
     }
 
+    public void Weapon() {
+        String weaponInput = ui.weaponInput().trim().toLowerCase();
+        switch (weaponInput){
+            case "attack" -> {
+            }
+            case "equip" -> {
+
+            }
+            case "reload" -> {
+               // RangedWeapon.reload(player.getInventory(), player.getCurrentRoom().getItems());
+            }
+        }
+    }
+
     private void movePlayer() {
         String directionInput = ui.getDirection().trim().toLowerCase();
 
