@@ -14,6 +14,7 @@ public class UserInterface {
                 5. View Inventory?
                 6. Show Health?
                 7. Eat?
+                8. Equip Weapon?
                 """);
     }
 
@@ -75,5 +76,21 @@ public class UserInterface {
 
     public void itemEaten(String eatOutputResult) {
         IO.println(eatOutputResult);
+    }
+
+    public String weaponToEquip(){
+        return IO.readln("What weapon would you like to equip?: ");
+    }
+
+    public void weaponEquipped(String itemName) {
+        IO.println("You equipped " + itemName);
+    }
+
+    public void weaponNotFound() {
+        IO.println("You have no such weapon in your inventory");
+    }
+
+    public void isNotWeapon() {
+        IO.println("The item is not a weapon");
     }
 }
