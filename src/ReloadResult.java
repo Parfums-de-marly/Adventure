@@ -1,0 +1,3 @@
+public enum ReloadResult {
+    NO_WEAPON, NOT_RANGED, NO_AMMO, RELOADED, RELOADED_EXTRA
+}

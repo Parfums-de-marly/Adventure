@@ -9,12 +9,21 @@ public class UserInterface {
                 
                 1. Look around the room?
                 2. Go to a new room?
-                3. Pick up Item?
-                4. Drop Item?
-                5. View Inventory?
-                6. Show Health?
-                7. Eat?
-                8. Equip Weapon?
+                3. Weapon
+                4. Pick up Item?
+                5. Drop Item?
+                6. View Inventory?
+                7. Show Health?
+                8. Eat?
+                """);
+    }
+    public void printWeaponMenu(){
+        IO.println("""
+                
+                1. Attack
+                2. Equip Weapon
+                3. Reload
+ 
                 """);
     }
 
@@ -92,5 +101,9 @@ public class UserInterface {
 
     public void isNotWeapon() {
         IO.println("The item is not a weapon");
+    }
+
+    public void reloadResult(String result){
+        IO.println(result);
     }
 }

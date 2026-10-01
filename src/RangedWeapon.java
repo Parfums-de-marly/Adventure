@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class RangedWeapon extends Weapon{
     private int currentMag;
     int magCapacity;
@@ -17,7 +15,6 @@ public class RangedWeapon extends Weapon{
         return currentMag > 0;
     }
 
-
     @Override
     public int use() {
         if(canUse()){
@@ -26,12 +23,16 @@ public class RangedWeapon extends Weapon{
         return currentMag;
     }
 
-    public void reload(int mag){
-        int result = currentMag += mag;
-        if (result > magCapacity){
-           int magSpace = (magCapacity-currentMag)-mag;
-            mag = Math.abs(magSpace);
+    public int reload(int mag){
+        if (mag + currentMag <= magCapacity) {
+            currentMag += mag;
+            mag = 0;
+        } else {
+            int actualSpace = magCapacity - currentMag;
+            currentMag += actualSpace;
+            mag = mag - actualSpace;
         }
+        return mag;
     }
 
 }

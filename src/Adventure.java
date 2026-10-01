@@ -2,7 +2,6 @@ public class Adventure {
     private final Map map;
     private final Player player;
     private final UserInterface ui;
-
     private boolean adventureIsDone = false;
 
     public Adventure() {
@@ -30,12 +29,12 @@ public class Adventure {
             switch (commandInput) {
                 case "1" -> showRoom();
                 case "2" -> movePlayer();
-                case "3" -> pickUpItem();
-                case "4" -> dropItem();
-                case "5" -> showInventory();
-                case "6" -> showHealth();
-                case "7" -> eatItem();
-                case "8" -> equipWeapon();
+                case "3" -> Weapon();
+                case "4" -> pickUpItem();
+                case "5" -> dropItem();
+                case "6" -> showInventory();
+                case "7" -> showHealth();
+                case "8" -> eatItem();
             }
         }
     }
@@ -144,6 +143,7 @@ public class Adventure {
     }
 
     private void Weapon(){
+        ui.printWeaponMenu();
         String weaponInput = ui.weaponInput().trim().toLowerCase();
 
         switch (weaponInput){
@@ -151,27 +151,33 @@ public class Adventure {
 
             }
             case "equip" -> {
-
+                String itemName = ui.weaponToEquip();
+                EquipResult equipResult = player.equip(itemName);
+                if(equipResult == EquipResult.EQUIPPED){
+                    ui.weaponEquipped(itemName);
+                }
+                if (equipResult == EquipResult.NOT_WEAPON){
+                    ui.isNotWeapon();
+                }
+                if (equipResult == EquipResult.NOT_FOUND){
+                    ui.weaponNotFound();
+                }
             }
             case "reload" -> {
+                ReloadResult result = player.reload();
 
+                switch(result){
+                    case NO_WEAPON -> ui.reloadResult("You have no weapon equipped...");
+                    case NOT_RANGED -> ui.reloadResult("You dont have any ranged weapon equipped...");
+                    case NO_AMMO -> ui.reloadResult("There is no ammo in range nor in your inventory...");
+                    case RELOADED -> ui.reloadResult("You reloaded your gun");
+                    case RELOADED_EXTRA -> ui.reloadResult("You reloaded your gun... extra ammo is inventory...");
+
+                }
             }
         }
     }
 
-    private void equipWeapon(){
-        String itemName = ui.weaponToEquip();
-        EquipResult equipResult = player.equip(itemName);
-        if(equipResult == EquipResult.EQUIPPED){
-            ui.weaponEquipped(itemName);
-        }
-        if (equipResult == EquipResult.NOT_WEAPON){
-            ui.isNotWeapon();
-        }
-        if (equipResult == EquipResult.NOT_FOUND){
-            ui.weaponNotFound();
-        }
-    }
 
     private void movePlayer() {
         String directionInput = ui.getDirection().trim().toLowerCase();

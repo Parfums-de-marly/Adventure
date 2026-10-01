@@ -44,6 +44,56 @@ public class Player {
         }
         return false;
     }
+    public Weapon getEquippedWeapon() {
+        return weaponEquipped;
+    }
+
+    public ReloadResult reload(){
+        if(weaponEquipped == null) {
+            return ReloadResult.NO_WEAPON;
+        }
+        if(!(weaponEquipped instanceof RangedWeapon ranged)){
+            return ReloadResult.NOT_RANGED;
+        }
+        boolean ammoInInventory = false;
+
+        Ammo ammo = null;
+        for(Item items: inventory){
+            if (items instanceof Ammo){
+                ammo = (Ammo) items;
+                ammoInInventory = true;
+                break;
+            }
+        }
+        for(Item items: getCurrentRoom().getItems()){
+            if (items instanceof Ammo){
+                ammo = (Ammo) items;
+                break;
+            }
+        }
+        if(ammo == null){
+            return ReloadResult.NO_AMMO;
+        }
+
+        int leftover = ranged.reload(ammo.getMag());
+
+        if(leftover == 0){
+            if(ammoInInventory) {
+                inventory.remove(ammo);
+                currentWeight -= ammo.getWeight();
+            } else {
+                getCurrentRoom().removeItem(ammo);
+            }
+        } else {
+            ammo.setMag(leftover);
+            if(!ammoInInventory) {
+                inventory.add(ammo);
+            }
+            return ReloadResult.RELOADED_EXTRA;
+        }
+        return ReloadResult.RELOADED;
+    }
+
 
     public Item findItem(String shortName) {
         for (Item item : inventory) {
