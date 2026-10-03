@@ -1,10 +1,14 @@
-public class UserInterface {
+import java.util.concurrent.TimeUnit;
 
-    public void showStartScreen(){
+public class UserInterface {
+    Adventure adventure = new Adventure();
+    private boolean adventureIsDone = false;
+
+    public void showStartScreen() {
         IO.println("You wake up in a mysterious room. Small and with stone walls...\nThere is an old damaged sword laying beside you, which you pick up...\nYou look in front of you and see a flickering warm torch and you can't but wonder what's beyond these walls...");
     }
 
-    public void showMenu(){
+    public void showMenu() {
         IO.println("""
                 
                 1. Look around the room?
@@ -17,93 +21,134 @@ public class UserInterface {
                 8. Eat?
                 """);
     }
-    public void printWeaponMenu(){
+
+    public void printWeaponMenu() {
         IO.println("""
                 
                 1. Attack
                 2. Equip Weapon
                 3. Reload
- 
+                
                 """);
     }
 
-    public String getCommand(){
-        return IO.readln("What do you wanna do? ");
-    }
+    public void run() {
+        while (!adventureIsDone) {
+            showStartScreen();
+            /*try {
+                // Pause the program for 3 seconds
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }*/
+            showMenu();
 
-    public String getDirection(){
-        return IO.readln("Input Direction(north, south, east, west): ");
-    }
+            String commandInput = getCommand().trim().toLowerCase();
 
-    public String weaponInput(){
-        return IO.readln("What do you wanna do? ");
-    }
-
-    public void showRoom(String roomDescription){
-        IO.println(roomDescription);
-    }
-
-    public void showInventory(Player player){
-        IO.println("Inventory");
-
-        for (Item item : player.getInventory()){
-            IO.println("- " + item.getLongName());
+            switch (commandInput) {
+                case "1" -> showRoom();
+                case "2" -> movePlayer();
+                case "3" -> Weapon();
+                case "4" -> pickUpItem();
+                case "5" -> dropItem();
+                case "6" -> showInventory();
+                case "7" -> showHealth();
+                case "8" -> eatItem();
+            }
         }
     }
 
-    public void showHealth(String healthStatus) {
-        IO.println(healthStatus);
+    public void Weapon() {
+        switch (weaponInput().trim().toLowerCase()) {
+            case "attack" -> attack();
+            case "equip" -> equip();
+            case "reload" -> reload();
+        }
     }
 
-    public void showDoors(String doordescrip){
+    public void movePlayer(){
+        String directionInput = getDirection().trim().toLowerCase();
+        switch (directionInput){
+            case "north" -> {
+                IO.println(adventure.north());
+            }
+
+            case "east" -> {
+                IO.println(adventure.east());
+            }
+
+            case "south" -> {
+                IO.println(adventure.south());
+            }
+
+            case "west" -> {
+                IO.println(adventure.west());
+            }
+        }
+    }
+
+    public attack() {
+
+    }
+
+    public void equip() {
+        IO.println(adventure.equip(IO.readln("What weapon would you like to equip?: ")));
+    }
+
+    public void reload() {
+        IO.println(adventure.reload());
+    }
+
+    public void showRoom() {
+        showDoors(adventure.doorDescription());
+        IO.println(adventure.showRoom());
+    }
+
+    public String getCommand() {
+        return IO.readln("What do you wanna do? ");
+    }
+
+    public String getDirection() {
+        return IO.readln("Input Direction(north, south, east, west): ");
+    }
+
+    public String weaponInput() {
+        return IO.readln("What do you wanna do? ");
+    }
+
+    public void showInventory() {
+        IO.println("Inventory");
+
+        IO.println(adventure.showInventory());
+    }
+
+    public void showHealth() {
+        IO.println(adventure.healthStatus());
+    }
+
+    public void showDoors(String doordescrip) {
         IO.println(doordescrip);
     }
 
-    public void showMovement(String direction){
+    public void showMovement(String direction) {
         IO.println("You Went: " + direction);
     }
 
-    public void showCannotGo(String direction){
+    public void showCannotGo(String direction) {
         IO.println("It's Not Possible To Go: " + direction);
     }
 
-    public String askWhichItem(){
-        return IO.readln("Which Item? ");
+    public void pickUpItem() {
+        IO.println(adventure.pickUpItem(IO.readln("Which Item? ")));
     }
 
-    public void itemPickup(String itemName){
-        IO.println("You picked up a " + itemName);
+    public void dropItem() {
+        showInventory();
+        IO.println(adventure.dropItem(IO.readln("Which Item? ")));
     }
 
-    public void itemDrop(String itemName){
-        IO.println("You Dropped " + itemName);
-    }
-
-    public String itemToEat(){
-        return IO.readln("What would you like to eat?: ");
-    }
-
-    public void itemEaten(String eatOutputResult) {
-        IO.println(eatOutputResult);
-    }
-
-    public String weaponToEquip(){
-        return IO.readln("What weapon would you like to equip?: ");
-    }
-
-    public void weaponEquipped(String itemName) {
-        IO.println("You equipped " + itemName);
-    }
-
-    public void weaponNotFound() {
-        IO.println("You have no such weapon in your inventory");
-    }
-
-    public void isNotWeapon() {
-        IO.println("The item is not a weapon");
-    }
-
-    public void reloadResult(String result){
-        IO.println(result);
+    public void eatItem() {
+        showInventory();
+        IO.println(adventure.eatItem(IO.readln("What would you like to eat?: ")));
     }
 }
