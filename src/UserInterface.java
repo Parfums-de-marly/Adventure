@@ -46,7 +46,7 @@ public class UserInterface {
             String commandInput = getCommand().trim().toLowerCase();
 
             switch (commandInput) {
-                case "1" -> showRoom();
+                case "1" -> lookAround();
                 case "2" -> movePlayer();
                 case "3" -> Weapon();
                 case "4" -> pickUpItem();
@@ -72,18 +72,22 @@ public class UserInterface {
         switch (directionInput){
             case "north" -> {
                 IO.println(adventure.north());
+                showRoom();
             }
 
             case "east" -> {
                 IO.println(adventure.east());
+                showRoom();
             }
 
             case "south" -> {
                 IO.println(adventure.south());
+                showRoom();
             }
 
             case "west" -> {
                 IO.println(adventure.west());
+                showRoom();
             }
         }
     }
@@ -103,6 +107,10 @@ public class UserInterface {
     public void showRoom() {
         showDoors(adventure.doorDescription());
         IO.println(adventure.showRoom());
+    }
+
+    public void lookAround(){
+        IO.println(adventure.lookAround());
     }
 
     public String getCommand() {
@@ -129,14 +137,6 @@ public class UserInterface {
 
     public void showDoors(String doordescrip) {
         IO.println(doordescrip);
-    }
-
-    public void showMovement(String direction) {
-        IO.println("You Went: " + direction);
-    }
-
-    public void showCannotGo(String direction) {
-        IO.println("It's Not Possible To Go: " + direction);
     }
 
     public void pickUpItem() {
