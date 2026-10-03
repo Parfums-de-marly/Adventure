@@ -41,18 +41,6 @@ public class Adventure {
         }
     }
 
-    public String lookAround(){
-        Room room = player.getCurrentRoom();
-        for(Item items: room.getItems()){
-            if(!(room.getItems().isEmpty())) {
-                return room.getDoorDescription() + "\nYou look around the room and see the following: " + items.getLongName();
-            } else {
-                return "You look around and only see emptiness...\n" + room.getDoorDescription();
-            }
-        }
-        return null;
-    }
-
     public String dropItem(String itemName) {
         Item item = player.dropItem(itemName);
         if (item != null) {
@@ -87,6 +75,9 @@ public class Adventure {
         for (Item item : room.getItems()){
             itemsShown.append("\n" + item.getLongName());
         }
+        if (itemsShown.isEmpty()){
+            return "You look around and only see emptiness...";
+        }
         return "You see:" + itemsShown;
     }
 
@@ -110,10 +101,10 @@ public class Adventure {
     }
 
     public String attack(){
-        if (player.getWeaponType().equalsIgnoreCase("RangedWeapon")) {
-            return "You shot your weapon...\n" + "Magazine: " + player.getEquippedWeapon().use();
+        if (player.getWeaponType().equals("RangedWeapon")) {
+            return "You shot your weapon...\n" + "Magazine: " + player.getWeaponEquipped().use();
         } else {
-            return "You swung your weapon...\n" + "Durability " + player.getEquippedWeapon().use();
+            return "You swung your weapon...\n" + "Durability " + player.getWeaponEquipped().use();
         }
     }
 

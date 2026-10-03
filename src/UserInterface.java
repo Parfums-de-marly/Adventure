@@ -34,16 +34,15 @@ public class UserInterface {
 
     public void run() {
         boolean adventureIsDone = false;
-        while (!adventureIsDone) {
-            showStartScreen();
-            /*try {
+        showStartScreen();
+        /*try {
                 // Pause the program for 3 seconds
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }*/
+        while (!adventureIsDone) {
             showMenu();
-
             String commandInput = getCommand().trim().toLowerCase();
 
             switch (commandInput) {
@@ -63,9 +62,9 @@ public class UserInterface {
     public void Weapon() {
         printWeaponMenu();
         switch (weaponInput().trim().toLowerCase()) {
-            case "attack" -> attack();
-            case "equip" -> equip();
-            case "reload" -> reload();
+            case "1" -> attack();
+            case "2" -> equip();
+            case "3" -> reload();
         }
     }
 
@@ -112,7 +111,7 @@ public class UserInterface {
     }
 
     public void lookAround(){
-        IO.println(adventure.lookAround());
+        IO.println(adventure.doorDescription());
     }
 
     public String getCommand() {
