@@ -22,6 +22,10 @@ public class RangedWeapon extends Weapon{
         }
         return currentMag;
     }
+    @Override
+    public String weaponType() {
+        return "RangedWeapon";
+    }
 
     public int reload(int mag){
         if (mag + currentMag <= magCapacity) {

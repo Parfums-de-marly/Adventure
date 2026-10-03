@@ -16,4 +16,9 @@ public class MeleeWeapon extends Weapon {
         return -1;
     }
 
+    @Override
+    public String weaponType() {
+        return "MeleeWeapon";
+    }
+
 }

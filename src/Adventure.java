@@ -30,7 +30,6 @@ public class Adventure {
 
     public String pickUpItem(String askWhichItem) {
         Item item = player.takeItem(askWhichItem);
-
         if (item != null) {
             return item.getLongName() + "\nInventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight();
 
@@ -55,9 +54,7 @@ public class Adventure {
     }
 
     public String dropItem(String itemName) {
-
         Item item = player.dropItem(itemName);
-
         if (item != null) {
             return item.getLongName() + "\nInventory Weight Used: " + player.getCurrentWeight() + "/" + player.getMaxWeight();
         } else {
@@ -112,10 +109,17 @@ public class Adventure {
         return "Health: " + hp + " - " + status;
     }
 
-    public String reload(){
-        ReloadResult result = player.reload();
+    public String attack(){
+        if (player.getWeaponType().equalsIgnoreCase("RangedWeapon")) {
+            return "You shot your weapon...\n" + "Magazine: " + player.getEquippedWeapon().use();
+        } else {
+            return "You swung your weapon...\n" + "Durability " + player.getEquippedWeapon().use();
+        }
+    }
 
-        switch(result){
+
+    public String reload(){
+        switch(player.reload()){
             case NO_WEAPON -> {
                 return "You have no weapon equipped...";
             }

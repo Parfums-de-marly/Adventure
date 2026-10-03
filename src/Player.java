@@ -200,4 +200,12 @@ public class Player {
         }
         return EquipResult.NOT_WEAPON;
     }
+
+    public Weapon getWeaponEquipped(){
+        return weaponEquipped;
+    }
+    public String getWeaponType(){
+        return weaponEquipped.weaponType();
+    }
 }
+

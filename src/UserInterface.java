@@ -2,7 +2,6 @@ import java.util.concurrent.TimeUnit;
 
 public class UserInterface {
     Adventure adventure = new Adventure();
-    private boolean adventureIsDone = false;
 
     public void showStartScreen() {
         IO.println("You wake up in a mysterious room. Small and with stone walls...\nThere is an old damaged sword laying beside you, which you pick up...\nYou look in front of you and see a flickering warm torch and you can't but wonder what's beyond these walls...");
@@ -19,6 +18,7 @@ public class UserInterface {
                 6. View Inventory?
                 7. Show Health?
                 8. Eat?
+                9. Exit game...
                 """);
     }
 
@@ -33,6 +33,7 @@ public class UserInterface {
     }
 
     public void run() {
+        boolean adventureIsDone = false;
         while (!adventureIsDone) {
             showStartScreen();
             /*try {
@@ -54,6 +55,7 @@ public class UserInterface {
                 case "6" -> showInventory();
                 case "7" -> showHealth();
                 case "8" -> eatItem();
+                case "9" -> System.exit(0);
             }
         }
     }
@@ -61,7 +63,7 @@ public class UserInterface {
     public void Weapon() {
         printWeaponMenu();
         switch (weaponInput().trim().toLowerCase()) {
-           // case "attack" -> attack();
+            case "attack" -> attack();
             case "equip" -> equip();
             case "reload" -> reload();
         }
@@ -92,9 +94,9 @@ public class UserInterface {
         }
     }
 
-    /*public attack() {
-
-    }*/
+    public void attack() {
+        IO.println(adventure.attack());
+    }
 
     public void equip() {
         IO.println(adventure.equip(IO.readln("What weapon would you like to equip?: ")));
