@@ -1,4 +1,4 @@
 void main() {
-    Adventure adventure = new Adventure();
-    adventure.run();
+    UserInterface userInterface = new UserInterface();
+    userInterface.run();
 }

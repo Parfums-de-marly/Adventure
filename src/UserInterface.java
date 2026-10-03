@@ -59,8 +59,9 @@ public class UserInterface {
     }
 
     public void Weapon() {
+        printWeaponMenu();
         switch (weaponInput().trim().toLowerCase()) {
-            case "attack" -> attack();
+           // case "attack" -> attack();
             case "equip" -> equip();
             case "reload" -> reload();
         }
@@ -87,9 +88,9 @@ public class UserInterface {
         }
     }
 
-    public attack() {
+    /*public attack() {
 
-    }
+    }*/
 
     public void equip() {
         IO.println(adventure.equip(IO.readln("What weapon would you like to equip?: ")));

@@ -20,6 +20,13 @@ public class Adventure {
         }
     }
 
+    public String showInventory() {
+        for (Item item : player.getInventory()){
+            return "- " + item.getLongName();
+        }
+        return null;
+    }
+
 
     public String pickUpItem(String askWhichItem) {
         Item item = player.takeItem(askWhichItem);
