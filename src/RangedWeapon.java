@@ -39,4 +39,8 @@ public class RangedWeapon extends Weapon{
         return mag;
     }
 
+    public int getCurrentMag(){
+        return currentMag;
+    }
+
 }

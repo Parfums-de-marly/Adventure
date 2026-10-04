@@ -121,10 +121,10 @@ public class Adventure {
                 return "There is no ammo in range nor in your inventory...";
             }
             case RELOADED -> {
-                return "You reloaded your gun";
+                return "You reloaded your gun\n" + "You currently have: " + player.getCurrentMag() + " shots in your mag";
             }
             case RELOADED_EXTRA -> {
-                return "You reloaded your gun... extra ammo is inventory...";
+                return "You reloaded your gun... extra ammo is inventory...\n" + "You currently have: " + player.getCurrentMag() + " shots in your mag";
             }
         }
         return null;
