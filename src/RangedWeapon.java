@@ -28,7 +28,7 @@ public class RangedWeapon extends Weapon{
     }
 
     public int reload(int mag){
-        if (mag + currentMag <= magCapacity) {
+        if (mag + currentMag == magCapacity) {
             currentMag += mag;
             mag = 0;
         } else {

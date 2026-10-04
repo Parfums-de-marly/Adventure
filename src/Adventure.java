@@ -127,7 +127,7 @@ public class Adventure {
                 return "You reloaded your gun... extra ammo is inventory...";
             }
         }
-        return null;
+        return "Error";
     }
 
     public String equip(String weaponEquip){
