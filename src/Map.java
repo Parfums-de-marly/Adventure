@@ -26,7 +26,7 @@ public class Map {
                 items(new Item("Compass", "The Golden Compass", 5),
                         new Food("Apple", "A Rotten Apple", 1, -5, "You ate a bad apple"),
                         new Ammo("ammo", "Ammunition", 2, 3),
-                        new RangedWeapon("revolver", "a old rusty revolver", 2, 20, 5)));
+                        new RangedWeapon("revolver", "a old rusty revolver", 2, 20, 6, 4)));
         rooms_[2] = new Room(
                 "Room 2",
                 "You walk into the room, it looks like a narrow passage curving east, lit by a single flickering lantern.",
