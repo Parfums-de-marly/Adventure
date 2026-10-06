@@ -3,11 +3,10 @@ public class RangedWeapon extends Weapon{
     int magCapacity;
     Ammo ammo;
 
-    public RangedWeapon(String shortName, String longName, int weight, int damage, int magCapacity){
+    public RangedWeapon(String shortName, String longName, int weight, int damage, int magCapacity, int currentMag){
         super(shortName,longName,weight,damage);
-        this.currentMag = 3;
+        this.currentMag = currentMag;
         this.magCapacity = magCapacity;
-
     }
 
     @Override
@@ -28,11 +27,11 @@ public class RangedWeapon extends Weapon{
     }
 
     public int reload(int mag){
-        if (mag + currentMag == magCapacity) {
+        int actualSpace = magCapacity - currentMag;
+        if (mag <= actualSpace) {
             currentMag += mag;
             mag = 0;
         } else {
-            int actualSpace = magCapacity - currentMag;
             currentMag += actualSpace;
             mag = mag - actualSpace;
         }

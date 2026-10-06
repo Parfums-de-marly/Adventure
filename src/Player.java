@@ -59,6 +59,9 @@ public class Player {
         if(!(weaponEquipped instanceof RangedWeapon ranged)){
             return ReloadResult.NOT_RANGED;
         }
+        if(ranged.getCurrentMag() == ranged.magCapacity){
+            return ReloadResult.MAG_FULL;
+        }
         boolean ammoInInventory = false;
 
         Ammo ammo = null;
@@ -69,19 +72,22 @@ public class Player {
                 break;
             }
         }
-        for(Item items: getCurrentRoom().getItems()){
-            if (items instanceof Ammo){
-                ammo = (Ammo) items;
-                break;
-            }
-        }
+
         if(ammo == null){
-            return ReloadResult.NO_AMMO;
+            for(Item items: getCurrentRoom().getItems()){
+                if (items instanceof Ammo){
+                    ammo = (Ammo) items;
+                    break;
+                }
+            }
+            if (ammo == null){
+                return ReloadResult.NO_AMMO;
+            }
         }
 
         int leftover = ranged.reload(ammo.getMag());
 
-        if(leftover == 0){
+        if(leftover <= 0){
             if(ammoInInventory) {
                 inventory.remove(ammo);
                 currentWeight -= ammo.getWeight();
@@ -91,7 +97,11 @@ public class Player {
         } else {
             ammo.setMag(leftover);
             if(!ammoInInventory) {
-                inventory.add(ammo);
+                if(currentWeight + ammo.getWeight() <= maxWeight) {
+                    inventory.add(ammo);
+                    currentWeight += ammo.getWeight();
+                    getCurrentRoom().removeItem(ammo);
+                }
             }
             return ReloadResult.RELOADED_EXTRA;
         }
@@ -101,10 +111,6 @@ public class Player {
     public Weapon getWeaponEquipped(){
         return weaponEquipped;
     }
-    public String getWeaponType(){
-        return weaponEquipped.weaponType();
-    }
-
     public int getCurrentMag(){
         return ranged().getCurrentMag();
     }
@@ -142,6 +148,37 @@ public class Player {
             if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Food) {
                     health += ((Food) item).getHealOrDamageAmount();
+                    currentRoomItems.remove(item);
+                    return EatResult.EATEN;
+                }
+                return EatResult.NOT_FOOD;
+            }
+        }
+        return EatResult.NOT_FOUND;
+    }
+
+    public EatResult drinkItem(String shortname) {
+        if (inventory.isEmpty() && currentRoom.getItems().isEmpty()) {
+            return EatResult.NOT_FOUND;
+        }
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(shortname)) {
+                if (item instanceof Liquid) {
+
+                    health += ((Liquid) item).getHealthAmount();
+                    inventory.remove(item);
+                    return EatResult.EATEN;
+                }
+                return EatResult.NOT_FOOD;
+            }
+
+
+        }
+        List<Item> currentRoomItems = currentRoom.getItems();
+        for (Item item : currentRoomItems) {
+            if (item.getShortName().equalsIgnoreCase(shortname)) {
+                if (item instanceof Liquid) {
+                    health += ((Liquid) item).getHealthAmount();
                     currentRoomItems.remove(item);
                     return EatResult.EATEN;
                 }

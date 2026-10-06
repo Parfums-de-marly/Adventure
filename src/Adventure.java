@@ -73,6 +73,22 @@ public class Adventure {
             return "Error";
         }
     }
+    public String drinkItem(String chosenPotion) {
+        EatResult drinkResult = player.drinkItem(chosenPotion);
+
+        if (drinkResult.equals(EatResult.EATEN)) {
+            return "You drank a " + chosenPotion + ". Updated Health: " + player.getHealth();
+
+        } else if (drinkResult.equals(EatResult.NOT_FOUND)) {
+            return "Potion not found";
+
+        } else if (drinkResult.equals(EatResult.NOT_FOOD)) {
+            return "Item chosen is not a potion";
+
+        } else {
+            return "Error";
+        }
+    }
 
     public String doorDescription(){
         Room room = player.getCurrentRoom();
@@ -139,6 +155,9 @@ public class Adventure {
             }
             case NOT_RANGED -> {
                 return "You dont have any ranged weapon equipped...";
+            }
+            case MAG_FULL -> {
+                return "Your mag is already full...";
             }
             case NO_AMMO -> {
                 return "There is no ammo in range nor in your inventory...";

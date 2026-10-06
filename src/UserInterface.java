@@ -13,12 +13,9 @@ public class UserInterface {
                 1. Look around the room?
                 2. Go to a new room?
                 3. Weapon
-                4. Pick up Item?
-                5. Drop Item?
-                6. View Inventory?
-                7. Show Health?
-                8. Eat?
-                9. Exit game...
+                4. Item-Menu
+                5. Show Health?
+                6. Exit game...
                 """);
     }
 
@@ -28,6 +25,18 @@ public class UserInterface {
                 1. Attack
                 2. Equip Weapon
                 3. Reload
+                
+                """);
+    }
+
+    public void printItemMenu() {
+        IO.println("""
+                
+                1. Pick up Item
+                2. Drop Item
+                3. Show Inventory
+                4. Eat item
+                5. Drink Potion
                 
                 """);
     }
@@ -49,12 +58,9 @@ public class UserInterface {
                 case "1" -> lookAround();
                 case "2" -> movePlayer();
                 case "3" -> Weapon();
-                case "4" -> pickUpItem();
-                case "5" -> dropItem();
-                case "6" -> showInventory();
-                case "7" -> showHealth();
-                case "8" -> eatItem();
-                case "9" -> System.exit(0);
+                case "4" -> ItemMenu();
+                case "5" -> showHealth();
+                case "6" -> System.exit(0);
             }
         }
     }
@@ -65,6 +71,17 @@ public class UserInterface {
             case "1" -> attack();
             case "2" -> equip();
             case "3" -> reload();
+        }
+    }
+
+    public void ItemMenu(){
+        printItemMenu();
+        switch (itemInput().trim().toLowerCase()) {
+            case "1" -> pickUpItem();
+            case "2" -> dropItem();
+            case "3" -> showInventory();
+            case "4" -> eatItem();
+            case "5" -> drinkItem();
         }
     }
 
@@ -126,6 +143,9 @@ public class UserInterface {
     public String weaponInput() {
         return IO.readln("What do you wanna do? ");
     }
+    public String itemInput() {
+        return IO.readln("What do you wanna do? ");
+    }
 
     public void showInventory() {
         IO.println("Inventory");
@@ -152,6 +172,11 @@ public class UserInterface {
 
     public void eatItem() {
         showInventory();
-        IO.println(adventure.eatItem(IO.readln("What would you like to eat?: ")));
+        IO.println(adventure.eatItem(IO.readln("What would you like to eat? ")));
+    }
+
+    public void drinkItem(){
+        showInventory();
+        IO.println(adventure.drinkItem(IO.readln("Which item would you like to Drink? ")));
     }
 }
