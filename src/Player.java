@@ -215,5 +215,13 @@ public class Player {
         }
         return EquipResult.NOT_WEAPON;
     }
+
+    public boolean attack(Enemy enemy){
+        if (weaponEquipped == null){
+            return false;
+        }
+        enemy.hit(weaponEquipped);
+        return true;
+    }
 }
 

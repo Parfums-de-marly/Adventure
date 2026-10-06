@@ -16,10 +16,24 @@ public class Room {
         this.description = description;
         this.doorDescription = doorDescription;
         this.items = items;
+        this.enemies = new ArrayList<>();
     }
 
     public ArrayList<Item> getItems(){
         return items;
+    }
+    private ArrayList<Enemy> enemies;
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public void addEnemy(Enemy enemy){
+        enemies.add(enemy);
+    }
+
+    public void removeEnemy(Enemy enemy){
+        enemies.remove(enemy);
     }
 
     public void setNorth(Room room) {
