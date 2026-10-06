@@ -14,4 +14,12 @@ public class Ammo extends Item {
     public int getMag(){
         return this.mag;
     }
+    @Override
+    public String toString(){
+        if(mag <= 1) {
+            return String.format("- Magazine: " + mag + " bullet");
+        } else {
+            return String.format("- Magazine: " + mag + " bullets");
+        }
+    }
 }

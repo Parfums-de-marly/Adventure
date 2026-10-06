@@ -28,10 +28,11 @@ public class Adventure {
     }
 
     public String showInventory() {
+        StringBuilder items = new StringBuilder();
         for (Item item : player.getInventory()){
-            return "- " + item.getLongName();
+            items.append("\n" + item);
         }
-        return null;
+        return "Inventory: " + items;
     }
 
 

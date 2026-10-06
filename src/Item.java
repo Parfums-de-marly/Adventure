@@ -40,6 +40,8 @@ public class Item {
         return typed.equals(shortName.toLowerCase())
                 || typed.equals(longName.toLowerCase());
     }
-
+    public String toString(){
+        return String.format("- " + longName);
+    }
 
 }

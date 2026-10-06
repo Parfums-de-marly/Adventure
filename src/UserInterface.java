@@ -148,8 +148,6 @@ public class UserInterface {
     }
 
     public void showInventory() {
-        IO.println("Inventory");
-
         IO.println(adventure.showInventory());
     }
 
