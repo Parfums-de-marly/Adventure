@@ -232,6 +232,10 @@ public class Player {
 
     private int health = 100;
 
+    public void takeDamage(int damage){
+        health -= damage;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -257,7 +261,7 @@ public class Player {
         if (weaponEquipped == null){
             return false;
         }
-        enemy.hit(weaponEquipped);
+        enemy.hit(this.weaponEquipped, this);
         return true;
     }
 }

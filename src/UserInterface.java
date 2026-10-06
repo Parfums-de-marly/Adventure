@@ -111,8 +111,7 @@ public class UserInterface {
     }
 
     public void attack() {
-        String enemy = IO.readln("Which enemy do you want to attack?: ");
-        IO.println(adventure.attack(enemy));
+        IO.println(adventure.attack());
     }
 
     public void equip() {

@@ -18,12 +18,19 @@ public class Enemy {
 
     }
 
-    public void hit(Weapon weapon){
+    public void hit(Weapon weapon, Player player){
         health -= weapon.getDamage();
 
-        if (health < 0){
-            health = 0;
+        if (health <= 0){
+            room.addItem(this.weapon);
+            room.removeEnemy(this);
+        } else {
+            player.takeDamage(this.weapon.getDamage());
         }
+    }
+
+    public void attack(Player player){
+        player.takeDamage(weapon.getDamage());
     }
 
     public String getShortName() {
