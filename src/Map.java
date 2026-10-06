@@ -25,11 +25,25 @@ public class Map {
         rooms_[1] = new Room("Room 1",  "", "A passage leads west back into the dark, and the hall continues east.",
                 items(new Item("Compass", "The Golden Compass", 5),
                         new Food("Apple", "A Rotten Apple", 1, -5, "You ate a bad apple"),
-                        new Ammo("ammo", "Ammunition", 2, 5),
-                        new RangedWeapon("revolver", "a old rusty revolver", 2, 20, 6)));
-        rooms_[2] = new Room("Room 2",  "You walk into the room, it looks like a narrow passage curving east, lit by a single flickering lantern.", "The passage leads west, and a way opens south.",
-                items(new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 10),
-                        new Item("Lantern", "A Dented Lantern", 2)));
+                        new Ammo("ammo", "Ammunition", 2, 3),
+                        new RangedWeapon("revolver", "a old rusty revolver", 2, 20, 5)));
+        rooms_[2] = new Room(
+                "Room 2",
+                "You walk into the room, it looks like a narrow passage curving east, lit by a single flickering lantern.",
+                "The passage leads west, and a way opens south.",
+                items(
+                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 10),
+                        new Item("Lantern", "A Dented Lantern", 2)
+                )
+        );
+
+        rooms_[2].addEnemy(new Enemy(
+                "monster",
+                "A cave monster",
+                30,
+                new MeleeWeapon("club", "A Heavy Monster Club", 4, 8),
+                rooms_[2]
+        ));
         rooms_[3] = new Room("Room 3",  "You walk into the room, it looks like a narrow passage curving west, damp and lined with crumbling brick.", "A path leads north up a rise, and the passage continues east.",
                 items(new Item("Key", "A little Gold Key", 3),
                         new Food("Bread", "A Stale Loaf of Bread", 1, 10, "You chew the stale bread")));

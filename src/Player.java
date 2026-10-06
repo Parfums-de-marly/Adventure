@@ -44,8 +44,12 @@ public class Player {
         }
         return false;
     }
-    public Weapon getEquippedWeapon() {
-        return weaponEquipped;
+
+    public RangedWeapon ranged(){
+        if((weaponEquipped instanceof RangedWeapon ranged)){
+            return ranged;
+        }
+        return null;
     }
 
     public ReloadResult reload(){
@@ -92,6 +96,17 @@ public class Player {
             return ReloadResult.RELOADED_EXTRA;
         }
         return ReloadResult.RELOADED;
+    }
+
+    public Weapon getWeaponEquipped(){
+        return weaponEquipped;
+    }
+    public String getWeaponType(){
+        return weaponEquipped.weaponType();
+    }
+
+    public int getCurrentMag(){
+        return ranged().getCurrentMag();
     }
 
 
@@ -201,11 +216,12 @@ public class Player {
         return EquipResult.NOT_WEAPON;
     }
 
-    public Weapon getWeaponEquipped(){
-        return weaponEquipped;
-    }
-    public String getWeaponType(){
-        return weaponEquipped.weaponType();
+    public boolean attack(Enemy enemy){
+        if (weaponEquipped == null){
+            return false;
+        }
+        enemy.hit(weaponEquipped);
+        return true;
     }
 }
 

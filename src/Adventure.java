@@ -12,12 +12,19 @@ public class Adventure {
         Room room = player.getCurrentRoom();
         int roomNumber = Integer.parseInt(room.getName().substring(5)) - 1;
         boolean isTrue = map.visitedRoom(roomNumber);
-        if(isTrue){
-            return room.getName();
-        } else {
+
+        String result = room.getName();
+
+        if (!isTrue) {
             map.setVisited(roomNumber);
-            return (room.getName() + " " + room.getDescription());
+            result += " " + room.getDescription();
         }
+
+        for (Enemy enemy : room.getEnemies()) {
+            result += "\nBeware! Here lurks: " + enemy.getLongName();
+        }
+
+        return result;
     }
 
     public String showInventory() {
@@ -100,12 +107,28 @@ public class Adventure {
         return "Health: " + hp + " - " + status;
     }
 
-    public String attack(){
-        if (player.getWeaponType().equals("RangedWeapon")) {
-            return "You shot your weapon...\n" + "Magazine: " + player.getWeaponEquipped().use();
-        } else {
-            return "You swung your weapon...\n" + "Durability " + player.getWeaponEquipped().use();
+    public String attack(String enemyName) {
+        Enemy enemy = null;
+
+        for (Enemy e : player.getCurrentRoom().getEnemies()) {
+            if (e.getShortName().equalsIgnoreCase(enemyName)) {
+                enemy = e;
+                break;
+            }
         }
+
+        if (enemy == null) {
+            return "There is no enemy called " + enemyName + " here.";
+        }
+
+        if (player.getWeaponEquipped() == null) {
+            return "You have no weapon equipped.";
+        }
+
+        player.attack(enemy);
+
+        return "You attacked " + enemy.getLongName()
+                + ". Enemy health: " + enemy.getHealth();
     }
 
 
@@ -121,10 +144,10 @@ public class Adventure {
                 return "There is no ammo in range nor in your inventory...";
             }
             case RELOADED -> {
-                return "You reloaded your gun";
+                return "You reloaded your gun\n" + "You currently have: " + player.getCurrentMag() + " shots in your mag";
             }
             case RELOADED_EXTRA -> {
-                return "You reloaded your gun... extra ammo is inventory...";
+                return "You reloaded your gun... extra ammo is inventory...\n" + "You currently have: " + player.getCurrentMag() + " shots in your mag";
             }
         }
         return "Error";
