@@ -32,7 +32,7 @@ public class Map {
                 "You walk into the room, it looks like a narrow passage curving east, lit by a single flickering lantern.",
                 "The passage leads west, and a way opens south.",
                 items(
-                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 10),
+                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 30),
                         new Item("Lantern", "A Dented Lantern", 2)
                 )
         );

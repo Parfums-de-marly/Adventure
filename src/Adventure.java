@@ -124,28 +124,31 @@ public class Adventure {
         return "Health: " + hp + " - " + status;
     }
 
-    public String attack(String enemyName) {
+    public String attack() {
+        int healthBefore = player.getHealth();
         Enemy enemy = null;
 
-        for (Enemy e : player.getCurrentRoom().getEnemies()) {
-            if (e.getShortName().equalsIgnoreCase(enemyName)) {
-                enemy = e;
-                break;
-            }
+        if (!player.getCurrentRoom().getEnemies().isEmpty()){
+            enemy = player.getCurrentRoom().getEnemies().get(0);
         }
 
         if (enemy == null) {
-            return "There is no enemy called " + enemyName + " here.";
+            return "You swing your weapon into the air.";
         }
 
         if (player.getWeaponEquipped() == null) {
             return "You have no weapon equipped.";
         }
-
         player.attack(enemy);
+        int damageTaken = healthBefore - player.getHealth();
+        if (enemy.getHealth() <= 0){
+            return "You killed: " + enemy.getLongName() + "\nThe enemy dropped: " + enemy.getWeapon().getLongName();
+        }
+        return "You attacked " + enemy.getLongName() + ". Enemy health: " + enemy.getHealth() + "\nThe enemy attacked you for " + damageTaken + " damage." + "\nYour health: " + player.getHealth();
 
-        return "You attacked " + enemy.getLongName()
-                + ". Enemy health: " + enemy.getHealth();
+
+
+
     }
 
 
