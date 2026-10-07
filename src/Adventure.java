@@ -61,8 +61,13 @@ public class Adventure {
     public String eatItem(String chosenFood) {
         EatResult eatResult = player.eatItem(chosenFood);
 
+        if (player.getHealth() <= 0) {
+            return "You ate " + chosenFood + ". You died! Game over.";
+        }
+
         if (eatResult.equals(EatResult.EATEN)) {
-            return "You ate " + chosenFood + ". Health difference: " + (player.getHealth() - 100);
+            return "You ate " + chosenFood + ". Damage taken: "
+                    + (player.getHealth() - 100) + "\nCurrent Health: " + player.getHealth();
 
         } else if (eatResult.equals(EatResult.NOT_FOUND)) {
             return "Item not found";
@@ -125,7 +130,6 @@ public class Adventure {
     }
 
     public String attack() {
-        int healthBefore = player.getHealth();
         Enemy enemy = null;
 
         if (!player.getCurrentRoom().getEnemies().isEmpty()){
@@ -139,11 +143,22 @@ public class Adventure {
         if (player.getWeaponEquipped() == null) {
             return "You have no weapon equipped.";
         }
+
+        int healthBefore = player.getHealth();
+
         player.attack(enemy);
+
         int damageTaken = healthBefore - player.getHealth();
         if (enemy.getHealth() <= 0){
+
             return "You killed: " + enemy.getLongName() + "\nThe enemy dropped: " + enemy.getWeapon().getLongName();
         }
+
+        if (player.getHealth() <= 0){
+            return "The enemy attacked you for " + damageTaken
+                    + " damage.\nYou died! Game over.";
+        }
+
         return "You attacked " + enemy.getLongName() + ". Enemy health: " + enemy.getHealth() + "\nThe enemy attacked you for " + damageTaken + " damage." + "\nYour health: " + player.getHealth();
 
 
@@ -188,6 +203,10 @@ public class Adventure {
             return "The item is not a weapon";
         }
         return null;
+    }
+
+    public boolean isPlayerDead(){
+        return player.getHealth() <= 0;
     }
 
     public String north(){

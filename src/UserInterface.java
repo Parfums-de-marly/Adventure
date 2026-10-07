@@ -112,6 +112,10 @@ public class UserInterface {
 
     public void attack() {
         IO.println(adventure.attack());
+
+        if (adventure.isPlayerDead()){
+            System.exit(0);
+        }
     }
 
     public void equip() {
@@ -170,6 +174,10 @@ public class UserInterface {
     public void eatItem() {
         showInventory();
         IO.println(adventure.eatItem(IO.readln("What would you like to eat? ")));
+
+        if (adventure.isPlayerDead()) {
+            System.exit(0);
+        }
     }
 
     public void drinkItem(){

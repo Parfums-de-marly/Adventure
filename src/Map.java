@@ -24,7 +24,7 @@ public class Map {
         Room[] rooms_ = new Room[23];
         rooms_[1] = new Room("Room 1",  "", "A passage leads west back into the dark, and the hall continues east.",
                 items(new Item("Compass", "The Golden Compass", 5),
-                        new Food("Apple", "A Rotten Apple", 1, -5, "You ate a bad apple"),
+                        new Food("Apple", "A Rotten Apple", 1, -92, "You ate a bad apple"),
                         new Ammo("ammo", "Ammunition", 2, 3),
                         new RangedWeapon("revolver", "a old rusty revolver", 2, 20, 6, 4)));
         rooms_[2] = new Room(
