@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Adventure {
     private final Map map;
     private final Player player;
@@ -211,11 +213,26 @@ public class Adventure {
         return player.getHealth() <= 0;
     }
 
+    public boolean checkForFinalBoss(){
+        ArrayList<Enemy> enemyArrayList = player.getCurrentRoom().getEnemies();
+        for (Enemy e : enemyArrayList){
+            if (e.getShortName().equals(map.getFinalBoss().getShortName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String north(){
-        if (player.goNorth()){
-            return "You Went: North";
+
+        if (!checkForFinalBoss()) {
+            if (player.goNorth()) {
+                return "You Went: North";
+            } else {
+                return "It's Not Possible To Go: North";
+            }
         } else {
-            return "It's Not Possible To Go: North";
+            return "The demon guards the way out north, you must slay him!";
         }
     }
     public String east(){
