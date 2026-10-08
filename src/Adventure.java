@@ -59,16 +59,25 @@ public class Adventure {
     }
 
     public String eatItem(String chosenFood) {
+        int healthBefore = player.getHealth();
+
         EatResult eatResult = player.eatItem(chosenFood);
 
         if (eatResult.equals(EatResult.EATEN)) {
+
+            int healthAfter = player.getHealth();
+            int healthDifference = healthAfter - healthBefore;
+
             if (player.getHealth() <= 0) {
                 return "You ate " + chosenFood + ". You died! Game over.";
-            } else if (player.getDamageOrHeal(chosenFood) < 0) {
-                return "You ate " + chosenFood + ". Damage taken: "
-                        + (player.getHealth() - 100) + "\nCurrent Health: " + player.getHealth();
+            } else if (healthDifference < 0) {
+                return "You ate " + chosenFood
+                        + ". Damage taken: " + (-healthDifference)
+                        + "\nCurrent Health: " + player.getHealth();
             } else {
-                return "You ate " + chosenFood + ". Amount healed: " + (player.getDamageOrHeal(chosenFood)) + "\nCurrent Health: " + player.getHealth();
+                return "You ate " + chosenFood
+                        + ". Amount healed: " + healthDifference
+                        + "\nCurrent Health: " + player.getHealth();
             }
 
         } else if (eatResult.equals(EatResult.NOT_FOUND)) {
@@ -81,11 +90,28 @@ public class Adventure {
             return "Error";
         }
     }
+
     public String drinkItem(String chosenPotion) {
+        int healthBefore = player.getHealth();
+
         EatResult drinkResult = player.drinkItem(chosenPotion);
 
         if (drinkResult.equals(EatResult.EATEN)) {
-            return "You drank a " + chosenPotion + ". Updated Health: " + player.getHealth();
+
+            int healthAfter = player.getHealth();
+            int healthDifference = healthAfter - healthBefore;
+
+            if (player.getHealth() <= 0) {
+                return "You drank " + chosenPotion + ". You died! Game over.";
+            } else if (healthDifference < 0) {
+                return "You drank " + chosenPotion
+                        + ". Damage taken: " + (-healthDifference)
+                        + "\nCurrent Health: " + player.getHealth();
+            } else {
+                return "You drank " + chosenPotion
+                        + ". Amount healed: " + healthDifference
+                        + "\nCurrent Health: " + player.getHealth();
+            }
 
         } else if (drinkResult.equals(EatResult.NOT_FOUND)) {
             return "Potion not found";
@@ -97,7 +123,6 @@ public class Adventure {
             return "Error";
         }
     }
-
     public String doorDescription(){
         Room room = player.getCurrentRoom();
         IO.println(room.getDoorDescription());
@@ -147,10 +172,13 @@ public class Adventure {
         }
 
         int healthBefore = player.getHealth();
+        int enemyHealthBefore = enemy.getHealth();
 
         player.attack(enemy);
 
         int damageTaken = healthBefore - player.getHealth();
+        int damageDealt = enemyHealthBefore - enemy.getHealth();
+
         if (enemy.getHealth() <= 0){
 
             return "You killed: " + enemy.getLongName() + "\nThe enemy dropped: " + enemy.getWeapon().getLongName();
@@ -161,7 +189,7 @@ public class Adventure {
                     + " damage.\nYou died! Game over.";
         }
 
-        return "You attacked " + enemy.getLongName() + ". Enemy health: " + enemy.getHealth() + "\nThe enemy attacked you for " + damageTaken + " damage." + "\nYour health: " + player.getHealth();
+        return "You attacked " + enemy.getLongName() + "\nYou did " + damageDealt + " Damage.\n" + "Current Enemy Health: " + enemy.getHealth() + "\nThe enemy attacked you for " + damageTaken + " damage." + "\nYour health: " + player.getHealth();
 
 
 
