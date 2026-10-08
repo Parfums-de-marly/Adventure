@@ -26,13 +26,12 @@ public class Map {
                 items(new Item("Compass", "The Golden Compass", 5),
                         new Food("Apple", "A Rotten Apple", 1, -92, "You ate a bad apple"),
                         new Ammo("ammo", "Ammunition", 2, 3),
-                        new RangedWeapon("revolver", "a old rusty revolver", 2, 20, 6, 4)));
+                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 30)));
         rooms_[2] = new Room(
                 "Room 2",
                 "You walk into the room, it looks like a narrow passage curving east, lit by a single flickering lantern.",
                 "The passage leads west, and a way opens south.",
                 items(
-                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 30),
                         new Item("Lantern", "A Dented Lantern", 2)
                 )
         );

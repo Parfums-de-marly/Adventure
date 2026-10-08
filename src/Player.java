@@ -136,6 +136,7 @@ public class Player {
 
                     health += ((Food) item).getHealOrDamageAmount();
                     inventory.remove(item);
+                    currentWeight -= item.getWeight();
                     return EatResult.EATEN;
                 }
                 return EatResult.NOT_FOOD;
@@ -240,10 +241,6 @@ public class Player {
         return health;
     }
 
-    public void addHealth(int points) {
-        health += points;
-    }
-
     public EquipResult equip(String itemName){
         Item item = findItem(itemName);
 
@@ -263,6 +260,25 @@ public class Player {
         }
         enemy.hit(this.weaponEquipped, this);
         return true;
+    }
+
+    public int getDamageOrHeal(String shortname) {
+        for (Item item : inventory) {
+            if (item.getShortName().equalsIgnoreCase(shortname)) {
+                if (item instanceof Food) {
+                    return ((Food) item).getHealOrDamageAmount();
+                }
+            }
+        }
+        List < Item > currentRoomItems = currentRoom.getItems();
+        for (Item item : currentRoomItems) {
+            if (item.getShortName().equalsIgnoreCase(shortname)) {
+                if (item instanceof Food) {
+                    return ((Food) item).getHealOrDamageAmount();
+                }
+            }
+        }
+        return 0;
     }
 }
 

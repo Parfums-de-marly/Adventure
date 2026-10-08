@@ -61,13 +61,15 @@ public class Adventure {
     public String eatItem(String chosenFood) {
         EatResult eatResult = player.eatItem(chosenFood);
 
-        if (player.getHealth() <= 0) {
-            return "You ate " + chosenFood + ". You died! Game over.";
-        }
-
         if (eatResult.equals(EatResult.EATEN)) {
-            return "You ate " + chosenFood + ". Damage taken: "
-                    + (player.getHealth() - 100) + "\nCurrent Health: " + player.getHealth();
+            if (player.getHealth() <= 0) {
+                return "You ate " + chosenFood + ". You died! Game over.";
+            } else if (player.getDamageOrHeal(chosenFood) < 0) {
+                return "You ate " + chosenFood + ". Damage taken: "
+                        + (player.getHealth() - 100) + "\nCurrent Health: " + player.getHealth();
+            } else {
+                return "You ate " + chosenFood + ". Amount healed: " + (player.getDamageOrHeal(chosenFood)) + "\nCurrent Health: " + player.getHealth();
+            }
 
         } else if (eatResult.equals(EatResult.NOT_FOUND)) {
             return "Item not found";
