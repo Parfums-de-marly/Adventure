@@ -14,18 +14,17 @@ public class Map {
     }
 
     private Liquid smallPotion() {
-        return new Liquid("Small Potion", "A Small Health Potion", 1, "You drink the small potion and feel better");
+        return new Liquid("Small Potion", "A Small Health Potion", 1, 40, "You drink the small potion and feel better");
     }
 
     private Liquid bigPotion() {
-        return new Liquid("Big Potion", "A Big Health Potion", 2, "You drink the big potion and feel much stronger");
+        return new Liquid("Big Potion", "A Big Health Potion", 2, 60, "You drink the big potion and feel much stronger");
     }
     public ArrayList<Room> buildMap() {
         Room[] rooms_ = new Room[23];
         rooms_[1] = new Room("Room 1",  "", "A passage leads west back into the dark, and the hall continues east.",
                 items(new Item("Compass", "The Golden Compass", 5),
-                        new Food("Apple", "A Rotten Apple", 1, -90, "You ate a bad apple"),
-                        new Ammo("ammo", "Ammunition", 2, 3),
+                        new Food("Apple", "A Rotten Apple", 1, -20, "You ate a bad apple"),
                         new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 17)));
         rooms_[2] = new Room(
                 "Room 2",
@@ -45,7 +44,8 @@ public class Map {
         ));
         rooms_[3] = new Room("Room 3",  "You walk into the room, it looks like a narrow passage curving west, damp and lined with crumbling brick.", "A path leads north up a rise, and the passage continues east.",
                 items(new Item("Key", "A little Gold Key", 3),
-                        new Food("Bread", "A Stale Loaf of Bread", 1, 10, "You chew the stale bread")));
+                        new Food("Bread", "A Stale Loaf of Bread", 1, 10, "You chew the stale bread"),
+                        new RangedWeapon("Revolver", "A rusty revolver", 3, 25, 6, 4)));
 
         rooms_[4] = new Room("Room 4",  "You walk into the room, it looks like a junction with scorch marks on the walls and the smell of smoke drifting up from below.", "Paths branch north, east, and down south into the heat.",
                 items(new Item("Rope", "A Coil of Rope", 2)));
@@ -83,12 +83,22 @@ public class Map {
         rooms_[12] = new Room("Room 12", "You walk into the room, it looks like a stone crossroads, with paths branching off in three directions.", "Paths lead west, east, and south.",
                 items(smallPotion()));
         rooms_[13] = new Room("Room 13", "You walk into the room, it looks like a narrow landing wedged between two staircases.", "A passage leads west, and a stairwell rises north.",
-                items(new Item("Coin", "A Tarnished Silver Coin", 1), new Food("", "", 0, 0, "")));
+                items(new Item("Coin", "A Tarnished Silver Coin", 1)));
+        rooms_[13].addEnemy(new Enemy(
+                "goblin",
+                "A hostile cave goblin",
+                50,
+                new MeleeWeapon("dagger", "A Goblin Dagger", 2, 12),
+                rooms_[13]
+        ));
         rooms_[14] = new Room("Room 14", "You walk into the room, it looks like a steep stairwell chamber, its steps worn smooth by centuries of footsteps.", "The stairs continue east, and a landing lies south.",
-                items(new MeleeWeapon("Spear", "A Splintered Spear", 4, 9), new Food("", "", 0, 0, "")));
+                items(new MeleeWeapon("Spear", "A Splintered Spear", 4, 9),
+                        new Food("Bread", "A Fresh Loaf of Bread", 1, 20, "You eat the fresh bread")));
         rooms_[15] = new Room("Room 15", "You walk into the room, it looks like a narrow side passage littered with broken pottery shards.", "The passage continues east and west.",
                 items(new MeleeWeapon("Club", "A Wooden Club", 3, 7),
-                        new Item("Shard", "A Sharp Pottery Shard", 1), new Food("", "", 0, 0, "")));
+                        new Item("Shard", "A Sharp Pottery Shard", 1),
+                        new Food("Meat", "A Piece of Dried Meat", 1, 25, "You eat the dried meat"),
+                        new Ammo("ammo", "Revolver Ammunition", 2, 6)));
         rooms_[16] = new Room("Room 16", "You walk into the room. It's a bare, empty dead end, thick with dust. There's nothing more here.", "The only way out is east.",
                 items(new MeleeWeapon("Axe", "A Heavy Battle Axe", 6, 18), new Food("", "", 0, 0, "")));
 
