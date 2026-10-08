@@ -24,7 +24,7 @@ public class Map {
         Room[] rooms_ = new Room[23];
         rooms_[1] = new Room("Room 1",  "", "A passage leads west back into the dark, and the hall continues east.",
                 items(new Item("Compass", "The Golden Compass", 5),
-                        new Food("Apple", "A Rotten Apple", 1, -92, "You ate a bad apple"),
+                        new Food("Apple", "A Rotten Apple", 1, -90, "You ate a bad apple"),
                         new Ammo("ammo", "Ammunition", 2, 3),
                         new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 17)));
         rooms_[2] = new Room(
@@ -40,7 +40,7 @@ public class Map {
                 "monster",
                 "A cave monster",
                 30,
-                new MeleeWeapon("club", "A Heavy Monster Club", 4, 8),
+                new MeleeWeapon("club", "A Heavy Monster Club", 4, 1),
                 rooms_[2]
         ));
         rooms_[3] = new Room("Room 3",  "You walk into the room, it looks like a narrow passage curving west, damp and lined with crumbling brick.", "A path leads north up a rise, and the passage continues east.",

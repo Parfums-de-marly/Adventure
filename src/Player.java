@@ -7,6 +7,7 @@ public class Player {
     private int maxWeight = 100;
     private int currentWeight = 0;
     private Weapon weaponEquipped;
+    private int health = 100;
 
     public Player(Room startingRoom, int health) {
         currentRoom = startingRoom;
@@ -134,7 +135,7 @@ public class Player {
             if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Food) {
 
-                    health += ((Food) item).getHealOrDamageAmount();
+                    addHealth(((Food) item).getHealOrDamageAmount());
                     inventory.remove(item);
                     currentWeight -= item.getWeight();
                     return EatResult.EATEN;
@@ -148,7 +149,7 @@ public class Player {
         for (Item item : currentRoomItems) {
             if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Food) {
-                    health += ((Food) item).getHealOrDamageAmount();
+                    addHealth(((Food) item).getHealOrDamageAmount());
                     currentRoomItems.remove(item);
                     return EatResult.EATEN;
                 }
@@ -166,7 +167,7 @@ public class Player {
             if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Liquid) {
 
-                    health += ((Liquid) item).getHealthAmount();
+                    addHealth(((Liquid) item).getHealthAmount());
                     inventory.remove(item);
                     return EatResult.EATEN;
                 }
@@ -179,7 +180,7 @@ public class Player {
         for (Item item : currentRoomItems) {
             if (item.getShortName().equalsIgnoreCase(shortname)) {
                 if (item instanceof Liquid) {
-                    health += ((Liquid) item).getHealthAmount();
+                    addHealth(((Liquid) item).getHealthAmount());
                     currentRoomItems.remove(item);
                     return EatResult.EATEN;
                 }
@@ -230,11 +231,16 @@ public class Player {
         return maxWeight;
     }
 
-
-    private int health = 100;
-
     public void takeDamage(int damage){
         health -= damage;
+    }
+
+    public void addHealth(int amount) {
+        health += amount;
+
+        if (health > 100) {
+            health = 100;
+        }
     }
 
     public int getHealth() {
