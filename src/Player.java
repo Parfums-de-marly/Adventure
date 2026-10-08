@@ -223,5 +223,9 @@ public class Player {
         enemy.hit(weaponEquipped);
         return true;
     }
+
+    public void teleport(Room room) {
+        currentRoom = room;
+    }
 }
 

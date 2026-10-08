@@ -127,8 +127,29 @@ public class Adventure {
 
         player.attack(enemy);
 
+        if (enemy.isDead()) {
+            player.getCurrentRoom().removeEnemy(enemy);
+            return "You killed " + enemy.getLongName() + ". The ancient switch hums.";
+        }
+
         return "You attacked " + enemy.getLongName()
                 + ". Enemy health: " + enemy.getHealth();
+
+    }
+
+    public String pullSwitch() {
+        Room room = player.getCurrentRoom();
+        if (!room.getName().equals("Room 18") || room.findItem("Switch") == null) {
+            return "There is no switch here.";
+        }
+        for (Enemy enemy : room.getEnemies()) {
+            if (enemy.getShortName().equalsIgnoreCase("Golem")) {
+                return "The switch is locked. The golem is still standing.";
+            }
+        }
+        Room exit = map.getRoom(22);
+        player.teleport(exit);
+        return "The switch clicks. Stone grinds, and you stand in " + exit.getName() + ".";
     }
 
 

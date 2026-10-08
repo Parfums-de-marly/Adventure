@@ -18,7 +18,8 @@ public class UserInterface {
                 6. View Inventory?
                 7. Show Health?
                 8. Eat?
-                9. Exit game...
+                9. Pull Switch?
+                10. Exit game...
                 """);
     }
 
@@ -54,7 +55,8 @@ public class UserInterface {
                 case "6" -> showInventory();
                 case "7" -> showHealth();
                 case "8" -> eatItem();
-                case "9" -> System.exit(0);
+                case "9" -> pullSwitch();
+                case "10" -> System.exit(0);
             }
         }
     }
@@ -153,5 +155,10 @@ public class UserInterface {
     public void eatItem() {
         showInventory();
         IO.println(adventure.eatItem(IO.readln("What would you like to eat?: ")));
+    }
+
+    public void pullSwitch() {
+        IO.println(adventure.pullSwitch());
+        showRoom();
     }
 }

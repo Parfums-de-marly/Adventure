@@ -47,4 +47,8 @@ public class Enemy {
         return room;
     }
 
+    public boolean isDead() {
+        return health <= 0;
+    }
+
 }
