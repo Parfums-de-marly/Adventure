@@ -45,7 +45,7 @@ public class Map {
         rooms_[3] = new Room("Room 3",  "You walk into the room, it looks like a narrow passage curving west, damp and lined with crumbling brick.", "A path leads north up a rise, and the passage continues east.",
                 items(new Item("Key", "A little Gold Key", 3),
                         new Food("Bread", "A Stale Loaf of Bread", 1, 10, "You chew the stale bread"),
-                        new RangedWeapon("Revolver", "A rusty revolver", 3, 25, 6, 4)));
+                        new RangedWeapon("Revolver", "A rusty revolver", 3, 25, 6, 1)));
 
         rooms_[4] = new Room("Room 4",  "You walk into the room, it looks like a junction with scorch marks on the walls and the smell of smoke drifting up from below.", "Paths branch north, east, and down south into the heat.",
                 items(new Item("Rope", "A Coil of Rope", 2)));

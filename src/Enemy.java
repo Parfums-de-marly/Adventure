@@ -19,6 +19,13 @@ public class Enemy {
     }
 
     public void hit(Weapon weapon, Player player){
+
+        if (!weapon.canUse()) {
+            return;
+        }
+
+        weapon.use();
+
         health -= weapon.getDamage();
 
         if (health <= 0){

@@ -161,20 +161,28 @@ public class Adventure {
     public String attack() {
         Enemy enemy = null;
 
+        if (player.getWeaponEquipped() == null) {
+            return "You have no weapon equipped.";
+        }
+
         if (!player.getCurrentRoom().getEnemies().isEmpty()){
             enemy = player.getCurrentRoom().getEnemies().get(0);
         }
 
         if (enemy == null) {
-            if (player.getWeaponEquipped().weaponType() == "MeleeWeapon") {
+            if (player.getWeaponEquipped().weaponType().equals("MeleeWeapon")) {
                 return "You swing your weapon into the air.";
-            } else if (player.ranged().getCurrentMag() > 0){
+            } else if (player.ranged().getCurrentMag() > 0) {
                 return "You shoot your weapon into the air.";
+            } else {
+                return "You have no ammo left.";
             }
         }
 
-        if (player.getWeaponEquipped() == null) {
-            return "You have no weapon equipped.";
+        // Tjek ammunition før angreb
+        if (player.getWeaponEquipped().weaponType().equals("RangedWeapon")
+                && !player.getWeaponEquipped().canUse()) {
+            return "You have no ammo left.";
         }
 
         int healthBefore = player.getHealth();
@@ -186,8 +194,9 @@ public class Adventure {
         int damageDealt = enemyHealthBefore - enemy.getHealth();
 
         if (enemy.getHealth() <= 0){
-
-            return "You killed: " + enemy.getLongName() + "\nThe enemy dropped: " + enemy.getWeapon().getLongName();
+            return "You killed: " + enemy.getLongName()
+                    + "\nThe enemy dropped: "
+                    + enemy.getWeapon().getLongName();
         }
 
         if (player.getHealth() <= 0){
@@ -195,11 +204,11 @@ public class Adventure {
                     + " damage.\nYou died! Game over.";
         }
 
-        return "You attacked " + enemy.getLongName() + "\nYou did " + damageDealt + " Damage.\n" + "Current Enemy Health: " + enemy.getHealth() + "\nThe enemy attacked you for " + damageTaken + " damage." + "\nYour health: " + player.getHealth();
-
-
-
-
+        return "You attacked " + enemy.getLongName()
+                + "\nYou did " + damageDealt + " Damage."
+                + "\nCurrent Enemy Health: " + enemy.getHealth()
+                + "\nThe enemy attacked you for " + damageTaken + " damage."
+                + "\nYour health: " + player.getHealth();
     }
 
 
