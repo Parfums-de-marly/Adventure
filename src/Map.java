@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -6,6 +5,7 @@ public class Map {
     private final ArrayList<Room> rooms;
     Room startRoom;
     boolean[] visitedRoom = new boolean[23];
+    private Enemy finalBoss;
 
     public Map(){
         this.rooms = buildMap();
@@ -26,8 +26,7 @@ public class Map {
                 items(new Item("Compass", "The Golden Compass", 5),
                         new Food("Apple", "A Rotten Apple", 1, -90, "You ate a bad apple"),
                         new Ammo("ammo", "Ammunition", 2, 3),
-                        new MeleeWeapon("Spear", "An old Spear", 6, 15),
-                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 15)));
+                        new MeleeWeapon("Sword", "An Old Rusty Sword", 6, 17)));
         rooms_[2] = new Room(
                 "Room 2",
                 "You walk into the room, it looks like a narrow passage curving east, lit by a single flickering lantern.",
@@ -47,18 +46,35 @@ public class Map {
         rooms_[3] = new Room("Room 3",  "You walk into the room, it looks like a narrow passage curving west, damp and lined with crumbling brick.", "A path leads north up a rise, and the passage continues east.",
                 items(new Item("Key", "A little Gold Key", 3),
                         new Food("Bread", "A Stale Loaf of Bread", 1, 10, "You chew the stale bread")));
+
         rooms_[4] = new Room("Room 4",  "You walk into the room, it looks like a junction with scorch marks on the walls and the smell of smoke drifting up from below.", "Paths branch north, east, and down south into the heat.",
                 items(new Item("Rope", "A Coil of Rope", 2)));
         rooms_[5] = new Room("Room 5",  "You walk into the room. It's a small, empty alcove, bare and silent. There's nothing more here.", "The only way out is west.",
                 items(new Item("Pouch", "A Small Coin Pouch", 1)));
+
+        rooms_[5].addEnemy(new Enemy(
+                "skeleton",
+                "A warrior skeleton",
+                30,
+                new MeleeWeapon("club", "rusty steel club", 4, 14),
+                rooms_[5]
+        ));
         rooms_[6] = new Room("Room 6",  "You walk into the room, it looks like a hot, dim chamber with glowing embers scattered across the floor.", "Passages lead north, west, and further south into the glow.",
                 items(new Food("Mushroom", "A Glowing Mushroom", 1, -10, "You ate a poisonous mushroom")));
         rooms_[7] = new Room("Room 7",  "You walk into the room, it looks like a narrow mining tunnel shored up with old wooden beams.", "The tunnel continues east and west.",
                 items(new Item("Torch", "A Burnt-out Torch", 1)));
         rooms_[8] = new Room("Room 8",  "You walk into the room, it looks like a low chamber choked with ash and the remains of an old fire pit.", "A passage leads north, and another opens east.",
-                items(new MeleeWeapon("Dagger", "A Charred Dagger", 2, 6)));
-        rooms_[9] = new Room("Room 9",  "You walk into the room. It's a scorched, empty dead end, nothing left but ash. There's nothing more here.", "The only way out is west.",
+                items(new MeleeWeapon("lance", "A Charred lance", 10, 25)));
+        rooms_[9] = new Room("Room 9",  "You walk into the room. It's a scorched dead end.", "The only way out is west.",
                 items(bigPotion()));
+
+        rooms_[9].addEnemy(new Enemy(
+                "ghoul",
+                "A hideous ghoul",
+                80,
+                new MeleeWeapon("hands", "Brittle ghoul hands", 1, 3),
+                rooms_[9]
+        ));
         rooms_[10] = new Room("Room 10", "You walk into the room, it looks like a cramped mining junction with rusted pickaxes leaning against the wall.", "A tunnel leads east, and a passage opens south.",
                 items(new MeleeWeapon("Pickaxe", "A Rusty Pickaxe", 5, 12)));
         rooms_[11] = new Room("Room 11", "You walk into the room, it looks like a quiet resting chamber with an old, moth-eaten bedroll in the corner.", "A passage leads north, and another continues west.",
@@ -75,17 +91,43 @@ public class Map {
                         new Item("Shard", "A Sharp Pottery Shard", 1), new Food("", "", 0, 0, "")));
         rooms_[16] = new Room("Room 16", "You walk into the room. It's a bare, empty dead end, thick with dust. There's nothing more here.", "The only way out is east.",
                 items(new MeleeWeapon("Axe", "A Heavy Battle Axe", 6, 18), new Food("", "", 0, 0, "")));
+
+        rooms_[16].addEnemy(new Enemy(
+                "snakeman",
+                "A grinning foul-toothed snakeman",
+                80,
+                new MeleeWeapon("scimitar", "curved shiny scimitar", 4, 26),
+                rooms_[16]
+        ));
         rooms_[17] = new Room("Room 17", "You walk into the room, it looks like a small landing overlooking a dark stairwell below.", "A passage leads west, and the way continues north.",
                 items(new Food("Ration", "A Dried Ration", 1, 20, "You eat the dried ration")));
         rooms_[18] = new Room("Room 18", "You walk into the room, it looks like a collapsed dead-end tunnel, blocked by rubble with no way further.", "The only way out is east.",
                 items(new Item("Gem", "A Dusty Red Gem", 1), new Food("", "", 0, 0, "")));
+
+        rooms_[18].addEnemy(new Enemy(
+                "wraith",
+                "A shrieking, ghastly wraith",
+                40,
+                new MeleeWeapon("scythe", "bloodstained bone-scythe", 8, 34),
+                rooms_[18]
+        ));
         rooms_[19] = new Room("Room 19", "You walk into the room, it looks like an open crossway with passages leading off in three directions.", "Paths lead south, west, and east.",
                 items(smallPotion()));
         rooms_[20] = new Room("Room 20", "You walk into the room, it looks like a quiet side chamber with faded murals painted across the walls.", "The only way out is east.",
                 items(bigPotion(),
-                        new MeleeWeapon("Longsword", "A Polished Longsword", 5, 15)));
+                        new MeleeWeapon("Longsword", "A Polished Longsword", 10, 40)));
         rooms_[21] = new Room("Room 21", "You walk into the room, it looks like a narrow final stretch, with light spilling in from somewhere above.", "A passage leads west, and light spills down from the north.",
                 items(new Item("Amulet", "A Faintly Glowing Amulet", 1)));
+
+        Enemy finalBoss = new Enemy(
+                "demon",
+                "A foul demon guardian",
+                100,
+                new MeleeWeapon("greathammer", "Demon guardian's greathammer", 40, 30),
+                rooms_[21]
+        );
+        this.finalBoss = finalBoss;
+        rooms_[21].addEnemy(finalBoss);
         rooms_[22] = new Room("Room 22", "You walk into the room, it looks like a bright chamber bathed in sunlight. You've found the way out — you win!", "A passage leads back south, to the dark caves of where you came...",
                 items(new Item("", "", 0), new Food("", "", 0, 0, "")));
 
@@ -141,6 +183,10 @@ public class Map {
     }
     public void setVisited(int roomNumber) {
         visitedRoom[roomNumber] = true;
+    }
+
+    public Enemy getFinalBoss(){
+        return finalBoss;
     }
 
     public Room getFirstRoom() {
