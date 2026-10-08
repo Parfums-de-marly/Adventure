@@ -264,6 +264,14 @@ public class Player {
         if (weaponEquipped == null){
             return false;
         }
+        if(weaponEquipped.weaponType() == "RangedWeapon") {
+            if(ranged().getCurrentMag() <= 0){
+                return false;
+            } else {
+                enemy.hit(this.weaponEquipped, this);
+                return true;
+            }
+        }
         enemy.hit(this.weaponEquipped, this);
         return true;
     }

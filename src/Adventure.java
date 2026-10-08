@@ -166,7 +166,11 @@ public class Adventure {
         }
 
         if (enemy == null) {
-            return "You swing your weapon into the air.";
+            if (player.getWeaponEquipped().weaponType() == "MeleeWeapon") {
+                return "You swing your weapon into the air.";
+            } else if (player.ranged().getCurrentMag() > 0){
+                return "You shoot your weapon into the air.";
+            }
         }
 
         if (player.getWeaponEquipped() == null) {
